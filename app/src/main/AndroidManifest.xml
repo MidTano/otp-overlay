@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!--
+        Receiver-only flow: we listen for the SMS_RECEIVED broadcast,
+        extract the OTP from the PDU bytes the platform hands us, and
+        never query content://sms — so READ_SMS is intentionally NOT
+        declared. RECEIVE_SMS alone is the minimal permission for
+        broadcast-driven extraction and trims one item off the Play
+        Console permissions disclosure form.
+    -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <!--
+        SMS permissions imply android.hardware.telephony — declare it
+        explicitly with required="false" so the listing stays available
+        on ChromeOS / tablets that lack the radio. Without this the SMS
+        permissions silently filter the app out of those devices on the
+        Play Store.
+    -->
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!--
+        Two foreground-service permission flavours are declared so the
+        OverlayService can switch on Build.VERSION at runtime:
+
+          •  FOREGROUND_SERVICE_DATA_SYNC      — Android 14+ "dataSync"
+             foreground type. Used on every API >= 26 so older Android
+             also has a well-known type backing the overlay service.
+          •  FOREGROUND_SERVICE_SPECIAL_USE    — Android 14+ "specialUse"
+             foreground type. Reserved for API 34+ where dataSync would
+             trip Play Protect's "long-running data sync" heuristic.
+
+        Both permissions are normal-protection auto-granted; declaring
+        them on older OS versions where the permission name is unknown
+        is a documented no-op (the system silently ignores it). On
+        Android 14 the dataSync permission is required for the install
+        path to accept the manifest, so it is declared explicitly.
+    -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!--
+        Visibility into other packages — needed for:
+          • populating the per-app filter list in Settings,
+          • resolving the sender's launcher icon when surfacing an
+            overlay for a push notification.
+        We avoid the broad QUERY_ALL_PACKAGES permission (Play Console
+        treats it as a sensitive permission) and declare only the
+        category that covers the apps users actually care about — those
+        with a launcher entry (banks, messengers, marketplaces, etc.).
+    -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent>
+    </queries>
+
+    <application
+        android:name="com.midtano.otp.core.OtpApplication"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.SmsOverlay"
+        tools:targetApi="33">
+
+        <!--
+            allowBackup="false": the app stores user-tuned regex,
+            trigger / stop words, app filters and OTP statistics
+            that include sender names. Per the privacy contract
+            ("no data leaves the device") none of that should
+            ride a Google Drive cloud backup or device-transfer.
+            data_extraction_rules.xml + backup_rules.xml stay in
+            place so a future targetSdk bump that needs them does
+            not lose the policy.
+        -->
+
+        <activity
+            android:name="com.midtano.otp.ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SmsOverlay"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|layoutDirection"
+            tools:ignore="LockedOrientationActivity,DiscouragedApi">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.midtano.otp.ui.main.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|layoutDirection"
+            tools:ignore="LockedOrientationActivity,DiscouragedApi"/>
+
+        <activity
+            android:name="com.midtano.otp.ui.onboarding.OnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|layoutDirection"
+            tools:ignore="LockedOrientationActivity,DiscouragedApi"/>
+
+        <activity
+            android:name="com.midtano.otp.ui.settings.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_settings"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|layoutDirection|orientation|screenSize|screenLayout|smallestScreenSize"
+            tools:ignore="LockedOrientationActivity,DiscouragedApi"/>
+
+        <activity
+            android:name="com.midtano.otp.ui.stats.StatsActivity"
+            android:exported="false"
+            android:label="@string/stats_title"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|layoutDirection|orientation|screenSize|screenLayout|smallestScreenSize"
+            tools:ignore="LockedOrientationActivity,DiscouragedApi"/>
+
+        <activity
+            android:name="com.midtano.otp.ui.debug.DebugActivity"
+            android:exported="false"
+            android:label="@string/debug_title"
+            android:screenOrientation="portrait"
+            android:configChanges="locale|layoutDirection|orientation|screenSize|screenLayout|smallestScreenSize"
+            tools:ignore="LockedOrientationActivity,DiscouragedApi"/>
+
+        <receiver
+            android:name="com.midtano.otp.service.SmsReceiver"
+            android:exported="true"
+            android:permission="android.permission.BROADCAST_SMS">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.midtano.otp.service.OtpAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service"/>
+        </service>
+
+        <service
+            android:name="com.midtano.otp.service.NotificationListener"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
+
+        <!--
+            foregroundServiceType is a bit-mask of "specialUse" + "dataSync".
+            • API < 29 ignores the attribute entirely.
+            • API 29..33 understands "dataSync" (specialUse is a no-op);
+              the system picks dataSync, which doesn't need any extra
+              permission on those versions.
+            • API >= 34 understands both; OverlayService.startForeground
+              passes "specialUse" explicitly with the matching permission,
+              and the <property/> below carries the human-readable
+              subtype that the specialUse foreground-services audit
+              expects.
+
+            Both flags are declared so the install path on Android 13
+            OEM builds (whose manifest validator rejects "specialUse"
+            on its own) succeeds, while the Android 14+ path still
+            resolves to the typed specialUse foreground service.
+        -->
+        <service
+            android:name="com.midtano.otp.service.OverlayService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync|specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="Displaying OTP codes from SMS on top of other apps"/>
+        </service>
+
+    </application>
+</manifest>

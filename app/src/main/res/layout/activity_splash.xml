@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Crash splash screen.
+
+    Mirrors the onboarding intro layering so all three "intro"
+    surfaces in the app (onboarding, main greeting, crash) share
+    one design language:
+
+      • crash_panel_root  — visible from the start, sits at the
+                            very bottom of the z-stack. Holds the
+                            "Что-то пошло не так" dialog with the
+                            two action buttons. Revealed organically
+                            as the SuckInOverlayView punches a hole
+                            through the dark overlay above.
+
+      • splash_root       — the cinematic intro layer. Contains
+                            the SuckInOverlayView + the crash
+                            Lottie. Drives the suck-in and
+                            scale-collapse choreography, then
+                            removes itself so the dialog beneath
+                            becomes interactive.
+
+    SplashActivity only inflates this layout when there is a
+    crash to surface; the non-crash path skips setContentView and
+    forwards immediately to the next screen, so this XML is only
+    used in crash mode.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MergeRootFrame">
+
+    <!-- ▼ Crash dialog — sits underneath the splash overlay ─────────── -->
+    <FrameLayout
+        android:id="@+id/crash_panel_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingStart="28dp"
+            android:paddingEnd="28dp">
+
+            <TextView
+                android:id="@+id/tv_crash_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/jetbrains_mono_bold"
+                android:gravity="center"
+                android:layout_marginBottom="14dp"/>
+
+            <TextView
+                android:id="@+id/tv_crash_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_tertiary"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:lineSpacingMultiplier="1.4"
+                android:layout_marginBottom="28dp"/>
+
+            <!-- Report button — accent (white background, dark text)
+                 with GitHub icon placed immediately after the label so
+                 the icon reads as part of the GitHub wordmark instead
+                 of floating against the right edge. -->
+            <FrameLayout
+                android:id="@+id/btn_crash_report"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@color/text_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="10dp">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center"
+                    tools:ignore="UseCompoundDrawables,UselessParent">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/crash_btn_report"
+                        android:textColor="@color/text_on_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textAllCaps="false"/>
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_github"
+                        android:contentDescription="@null"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- Ignore button — subtle -->
+            <Button
+                android:id="@+id/btn_crash_ignore"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_dim"
+                android:textSize="12sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- ▼ Splash overlay — same suck-in + Lottie collapse as onboarding -->
+    <!--
+        clickable=true so taps are absorbed by the overlay while it
+        plays. Without this an early tap could land on the buttons
+        beneath as soon as the suck-in starts revealing them.
+    -->
+    <FrameLayout
+        android:id="@+id/splash_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.midtano.otp.overlay.SuckInOverlayView
+            android:id="@+id/suck_in_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_splash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"/>
+
+    </FrameLayout>
+
+</FrameLayout>

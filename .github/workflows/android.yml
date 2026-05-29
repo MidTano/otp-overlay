@@ -1,0 +1,298 @@
+name: Android CI
+
+# Three parallel jobs share the same JDK + Gradle setup but split on
+# what they execute, so a failure surfaces fast instead of hiding
+# inside a 7-minute monolithic run:
+#
+#   • test    — unit tests; the cheapest signal, gates everything
+#   • lint    — lintDebug + lintRelease in parallel with `test`
+#   • build   — debug + release assembly with R8 / shrinkResources
+#
+# All third-party actions are pinned to a full commit SHA with the
+# matching tag in the trailing comment. Tags are mutable references;
+# commit SHAs are not — pinning here means a compromised maintainer
+# account cannot turn this workflow into a supply-chain attack
+# vector. Regenerate via:
+#   git ls-remote --tags https://github.com/<owner>/<repo> v<X>.<Y>.<Z>
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-disabled: false
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+      - name: Unit tests
+        run: ./gradlew :app:testDebugUnitTest --stacktrace
+      - name: Upload unit-test report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: unit-test-report
+          path: app/build/reports/tests/testDebugUnitTest/
+          if-no-files-found: ignore
+      - name: JaCoCo coverage report
+        run: ./gradlew :app:jacocoTestReport --stacktrace
+      - name: Upload coverage report (HTML)
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: coverage-html
+          path: app/build/reports/jacoco/jacocoTestReport/html
+          if-no-files-found: ignore
+      - name: Upload coverage report (XML)
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: coverage-xml
+          path: app/build/reports/jacoco/jacocoTestReport/jacocoTestReport.xml
+          if-no-files-found: ignore
+
+  detekt:
+    name: Static analysis (detekt)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-disabled: false
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+      # Detekt runs against `config/detekt/detekt.yml` with the
+      # baseline at `config/detekt/detekt-baseline.xml` absorbing
+      # pre-existing findings. New findings introduced by a PR fail
+      # the build; the baseline can be regenerated locally with
+      # `./gradlew :app:detektBaseline` when style changes are
+      # applied intentionally.
+      - name: Run detekt
+        run: ./gradlew :app:detekt --stacktrace
+      - name: Upload detekt SARIF
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: detekt-sarif
+          path: app/build/reports/detekt/detekt.sarif
+          if-no-files-found: ignore
+      - name: Upload detekt HTML
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: detekt-html
+          path: app/build/reports/detekt/detekt.html
+          if-no-files-found: ignore
+
+  lint:
+    name: Lint (debug + release)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-disabled: false
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+      # lintDebug + lintRelease catch slightly different rule sets;
+      # release runs with R8 awareness, debug runs with the regular
+      # variant. Running both keeps every code path covered.
+      - name: Lint
+        run: ./gradlew :app:lintDebug :app:lintRelease --stacktrace
+      - name: Upload lint report (debug)
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: lint-report-debug
+          path: app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
+      - name: Upload lint report (release)
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: lint-report-release
+          path: app/build/reports/lint-results-release.html
+          if-no-files-found: ignore
+
+  build:
+    name: Assemble (debug + release)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Set up JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-disabled: false
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+      - name: Assemble debug APK
+        run: ./gradlew :app:assembleDebug --stacktrace
+      - name: Assemble debug androidTest APK
+        # Catches androidTest compile-time regressions (broken view
+        # ids in Espresso tests, missing rules dependency, etc.)
+        # without needing an emulator on the runner.
+        run: ./gradlew :app:assembleDebugAndroidTest --stacktrace
+      # Build the release variant on every CI run so R8 / shrinkResources
+      # rule regressions are caught in PR review instead of after a tag
+      # push. The build runs with the debug signing config because the
+      # production keystore is only injected by release.yml, but the R8
+      # pipeline is byte-identical to a real release.
+      - name: Assemble release APK (debug-signed)
+        run: ./gradlew :app:assembleRelease --stacktrace
+      - name: Upload debug APK
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: ignore
+      - name: Upload R8 mapping (release)
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: r8-mapping-ci
+          path: app/build/outputs/mapping/release/mapping.txt
+          if-no-files-found: ignore
+
+  # ── Instrumented tests (Android emulator on CI) ────────────────────
+  #
+  # Runs the androidTest source set under `app/src/androidTest`
+  # against an x86_64 emulator on a Linux runner. Coverage:
+  # SystemAlertWindow attach, ClipboardManager, NotificationManager
+  # channels, Activity inflate, Espresso click → SharedPreferences
+  # round-trip and OverlayService lifecycle.
+  #
+  # Hardware acceleration: GitHub-hosted ubuntu-latest runners
+  # expose /dev/kvm so the emulator boots in 30..60 s instead of
+  # 5+ minutes on a software-rendered fallback. The
+  # `enable-hw-keyboard` flag stops the IME from stealing focus
+  # from Espresso clicks during the SettingsActivity test.
+  #
+  # If the runner pool ever loses /dev/kvm access, drop the
+  # `force-avd-creation` flag and switch to `arch: arm64-v8a`
+  # via QEMU — slower but works without nested virtualisation.
+  instrumented:
+    name: Instrumented tests (emulator)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    # Skip on PRs from forks because the AVD cache can leak the
+    # workflow secrets if a malicious fork abuses the cache key.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    strategy:
+      fail-fast: false
+      matrix:
+        api-level: [ 34 ]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-disabled: false
+
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+
+      # AVD snapshot cache: the first run boots a clean emulator
+      # and saves the post-boot snapshot under ~/.android/avd; every
+      # subsequent run on the same api-level reuses it (~20 s boot
+      # vs ~90 s cold).
+      - name: Cache AVD snapshot
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}-v1
+
+      - name: Create AVD and warm-cache snapshot
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2.37.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: echo "AVD snapshot warmed up"
+
+      - name: Run instrumented tests on emulator
+        uses: reactivecircus/android-emulator-runner@e89f39f1abbbd05b1113a29cf4db69e7540cae5a # v2.37.0
+        with:
+          api-level: ${{ matrix.api-level }}
+          arch: x86_64
+          target: google_apis
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: |
+            adb shell appops set com.midtano.otp.debug SYSTEM_ALERT_WINDOW allow || true
+            ./gradlew :app:connectedDebugAndroidTest --stacktrace
+
+      - name: Upload instrumented-test report
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: instrumented-test-report-api-${{ matrix.api-level }}
+          path: app/build/reports/androidTests/connected/
+          if-no-files-found: ignore

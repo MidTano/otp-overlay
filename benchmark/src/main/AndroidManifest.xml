@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Benchmark module manifest.
+
+    The androidx.startup InitializationProvider that the :app
+    dependencies register is removed here: when the benchmark APK
+    loads, it has access to :app's resource map but not :app's
+    Application class or string id constants resolved at
+    InitializationProvider.onCreate(). Letting startup fire would
+    crash the benchmark process before the first measurement.
+    Removing the provider is the documented workaround for
+    self-instrumenting benchmark modules.
+
+    See: https://developer.android.com/topic/performance/benchmarking/microbenchmark-write
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            tools:node="remove" />
+    </application>
+
+</manifest>

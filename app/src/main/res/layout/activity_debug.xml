@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug screen — last crash report + rolling log. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:scrollbarThumbVertical="@drawable/app_scrollbar_thumb"
+    android:scrollbarSize="3dp"
+    android:fadeScrollbars="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/debug_title"
+            android:textColor="#FFFFFF"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/debug_subtitle"
+            android:textColor="#7A7A7A"
+            android:textSize="12sp"
+            android:layout_marginBottom="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/debug_section_crash"
+            android:textColor="#5A5A5A"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/tv_crash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#A0A0A0"
+            android:textSize="11sp"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textIsSelectable="true"
+            android:padding="12dp"
+            android:background="@drawable/card_bg"
+            android:layout_marginBottom="14dp"
+            tools:ignore="SmallSp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/debug_section_log"
+            android:textColor="#5A5A5A"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="6dp"/>
+
+        <TextView
+            android:id="@+id/tv_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#A0A0A0"
+            android:textSize="11sp"
+            android:fontFamily="@font/jetbrains_mono"
+            android:textIsSelectable="true"
+            android:padding="12dp"
+            android:background="@drawable/card_bg"
+            android:layout_marginBottom="14dp"
+            tools:ignore="SmallSp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp"
+            tools:ignore="ButtonStyle">
+            <Button
+                android:id="@+id/btn_log_refresh"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/debug_btn_refresh"
+                android:textColor="#C0C0C0"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_secondary"
+                android:layout_marginEnd="6dp"/>
+            <Button
+                android:id="@+id/btn_log_clear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/debug_btn_clear"
+                android:textColor="#C0C0C0"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:background="@drawable/btn_secondary"
+                android:layout_marginStart="6dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

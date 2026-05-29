@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="12dp">
+
+    <ImageView
+        android:id="@+id/iv_app_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="12dp"
+        android:contentDescription="@null"/>
+
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_chip"
+        android:textSize="14sp"/>
+
+    <com.midtano.otp.widget.AnimatedCheckbox
+        android:id="@+id/cb_app"
+        style="@style/CB6"/>
+</LinearLayout>

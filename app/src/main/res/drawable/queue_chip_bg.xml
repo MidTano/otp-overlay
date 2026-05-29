@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Pill background for the "+N" queue counter on the OTP card.
+
+    Layered drawable: a translucent surface tint at the bottom and a
+    1-dp outline on top. The outer <ripple> wraps the whole thing so a
+    tap produces a soft circular ripple inside the pill bounds — much
+    nicer than the previous state-list which just swapped two flat
+    colours and lost the press location.
+
+    Colours come from values/colors.xml so re-theming the chip is a
+    single-file change.
+-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_on_dark">
+
+    <item>
+        <layer-list>
+            <!-- Soft translucent fill — subtle on the dark card. -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/surface_outline_dim"/>
+                    <corners android:radius="@dimen/radius_pill"/>
+                </shape>
+            </item>
+            <!-- Hairline outline so the chip stays legible against
+                 every brand colour in the perimeter sweep. -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent"/>
+                    <corners android:radius="@dimen/radius_pill"/>
+                    <stroke
+                        android:width="@dimen/stroke_hairline"
+                        android:color="@color/surface_outline"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Mask defines the ripple bounds (pill silhouette) so the wave
+         is clipped to the chip outline and never bleeds onto the
+         surrounding glow. -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFFFF"/>
+            <corners android:radius="@dimen/radius_pill"/>
+        </shape>
+    </item>
+</ripple>

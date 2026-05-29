@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Centralised dimension tokens actually referenced by layouts
+        and drawables today.
+    -->
+
+    <!-- Pill-shaped corner — bigger than any real chip can ever get. -->
+    <dimen name="radius_pill">999dp</dimen>
+
+    <!-- Hairline outline stroke (used by section dividers). -->
+    <dimen name="stroke_hairline">1dp</dimen>
+</resources>

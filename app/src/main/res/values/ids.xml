@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tags used by LocaleInflaterFactory to remember which @string/
+         resource a TextView's text/hint was inflated from, so the
+         locale switcher can re-apply the correct value on language
+         change without recreating the activity. -->
+    <item name="locale_text_res" type="id"/>
+    <item name="locale_hint_res" type="id"/>
+</resources>

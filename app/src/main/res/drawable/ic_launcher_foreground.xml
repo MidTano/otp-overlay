@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adaptive-icon foreground: a plain white padlock centred inside
+    the 66 dp safe zone of the disc background.
+
+    All ink is pure white so the OS theming (Material You, A13+)
+    can tint the lock cleanly without grayscale leakage.
+
+    Geometry (viewport 108108, lock fits inside the 66 dp disc):
+       shackle: stroked U from (44,52) up to (44,40), arc to (64,40),
+                 back down to (64,52). Stroke 4.5 dp, rounded caps.
+       body:    rounded rectangle ~3626, top at y=51, corner 4.
+       keyhole: 2.6 dp dot + a tapered 8 dp slot below.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Shackle -->
+    <path
+        android:pathData="M 44,52 L 44,40 A 10,10 0 0,1 64,40 L 64,52"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="4.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"/>
+
+    <!-- Body -->
+    <path
+        android:pathData="M 38,50 L 70,50 A 4,4 0 0,1 74,54 L 74,75 A 4,4 0 0,1 70,79 L 38,79 A 4,4 0 0,1 34,75 L 34,54 A 4,4 0 0,1 38,50 Z"
+        android:fillColor="#FFFFFFFF"/>
+
+    <!-- Keyhole dot -->
+    <path
+        android:pathData="M 54,61 m -2.6,0 a 2.6,2.6 0 1,0 5.2,0 a 2.6,2.6 0 1,0 -5.2,0 z"
+        android:fillColor="#3F3F3F"/>
+
+    <!-- Keyhole slot -->
+    <path
+        android:pathData="M 52.6,61 L 55.4,61 L 54.7,71 L 53.3,71 Z"
+        android:fillColor="#3F3F3F"/>
+
+</vector>

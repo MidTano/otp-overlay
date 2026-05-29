@@ -1,0 +1,39 @@
+root = true
+
+# Common rules — apply everywhere unless overridden below.
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+# 120 columns is the project-wide soft cap. Detekt enforces the
+# same limit in CI (config/detekt/detekt.yml → MaxLineLength /
+# MaximumLineLength). If you raise one, raise the other.
+max_line_length = 120
+
+# Kotlin sources — official Kotlin coding conventions, 4-space indent,
+# 120-column line cap (kept in sync with config/detekt/detekt.yml).
+[*.kt]
+indent_size = 4
+ij_kotlin_imports_layout = *
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+
+# Android XML resources — 4-space indent.
+[*.xml]
+indent_size = 4
+
+# Gradle / properties / yaml configs.
+[*.{gradle,gradle.kts,properties,toml,yml,yaml}]
+indent_size = 4
+
+# Markdown — keep the trailing-whitespace rule off because Markdown
+# uses two trailing spaces for hard line breaks.
+[*.md]
+trim_trailing_whitespace = false
+
+# Windows batch wrappers ship with CRLF endings; preserve.
+[*.bat]
+end_of_line = crlf

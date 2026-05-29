@@ -1,0 +1,70 @@
+name: CodeQL
+
+# Static-analysis security scan run by GitHub's CodeQL engine.
+# Catches common Java/Android pitfalls (path traversal, command
+# injection, broadcast hijack, etc.) on every push and weekly on a
+# schedule so a stale main branch still gets re-checked.
+#
+# All third-party actions are pinned to a full commit SHA with the
+# matching tag in the trailing comment — see android.yml for the
+# rationale and the regen command.
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  schedule:
+    # Mondays at 06:30 UTC — same window as Dependabot runs so the
+    # security report and dependency report land together.
+    - cron: '30 6 * * 1'
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (java)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654 # v5.2.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6.1.0
+        with:
+          cache-disabled: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+        with:
+          languages: java-kotlin
+          # security-extended adds higher-severity sources (e.g. tainted
+          # Intent extras flowing into PackageManager calls) on top of
+          # the default query suite.
+          queries: security-extended
+
+      - name: Grant gradlew execute permission
+        run: chmod +x ./gradlew
+
+      - name: Build (debug)
+        run: ./gradlew :app:assembleDebug --stacktrace
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@7211b7c8077ea37d8641b6271f6a365a22a5fbfa # v4.36.0
+        with:
+          category: '/language:java-kotlin'

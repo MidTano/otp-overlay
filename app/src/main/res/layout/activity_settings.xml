@@ -1,0 +1,1730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings screen. -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical" android:scrollbarThumbVertical="@drawable/app_scrollbar_thumb" android:scrollbarSize="3dp" android:fadeScrollbars="true"
+    tools:ignore="TooManyViews">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="40dp">
+
+        <!-- Hero -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:textColor="@color/text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.02"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- ── Language picker ─────────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_language"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="@null"/>
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_language_label" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_language_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_language_current" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/btn_language"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:gravity="center"
+                android:text="@string/settings_lang_default"
+                android:textColor="@color/onboarding_chip_dim"
+                android:textSize="12sp"
+                android:fontFamily="@font/jetbrains_mono"
+                android:background="@drawable/tag_bg"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:clickable="true"
+                android:focusable="true"/>
+        </LinearLayout>
+
+        <!-- ── App filter ─────────────────────────────────────────── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_app_filter"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_filter_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_filter_mode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_filter_desc_off" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_filter_apps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/apps_filter_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/settings_apps_list_header"
+            android:textColor="@color/text_quaternary" android:textSize="12sp"
+            android:letterSpacing="0.2" android:layout_marginBottom="8dp"/>
+
+        <!-- Search + bulk-select toolbar. -->
+        <EditText
+            android:id="@+id/et_app_search"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="@drawable/input_bg"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:textColor="@color/text_chip_strong"
+            android:textColorHint="@color/text_input_hint"
+            android:textSize="13sp"
+            android:hint="@string/apps_search_hint"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:autofillHints="off"
+            android:inputType="text"
+            android:layout_marginBottom="8dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp"
+            tools:ignore="ButtonStyle">
+            <Button
+                android:id="@+id/btn_apps_select_all"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="@string/apps_select_all"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_chip_strong"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:layout_marginEnd="6dp"/>
+            <Button
+                android:id="@+id/btn_apps_select_none"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="@string/apps_select_none"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_button_dim"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+        </LinearLayout>
+
+        <!-- App list (RecyclerView). -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/apps_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@drawable/card_bg"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginBottom="22dp"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="never"
+            android:scrollbars="none"/>
+
+        </LinearLayout>
+
+        <!-- ── Behaviour ───────────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_behavior"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <!--
+            Behaviour cards are ordered by how often the user touches
+            them on a fresh install. Auto-paste + its Accessibility
+            companion is the first thing anyone configures, so it sits
+            at the top. Notification-suppression toggles come next
+            (they're a one-time setup but very visible). Niche
+            preferences (swipe/back, light reveal) drop to the bottom.
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="6dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_autopaste_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_auto_paste_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_autopaste_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_auto_paste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <!-- Accessibility shortcut moved up here so it sits directly
+             under the auto-paste toggle — it's the permission that
+             toggle depends on. -->
+        <Button android:id="@+id/btn_accessibility"
+            android:layout_width="match_parent" android:layout_height="42dp"
+            android:text="@string/settings_btn_accessibility"
+            android:background="@drawable/btn_secondary"
+            android:backgroundTint="@null"
+            android:textColor="@color/text_button_muted" android:textSize="12sp"
+            android:textAllCaps="false"
+            android:insetTop="0dp" android:insetBottom="0dp" android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="6dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_no_copy_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_autopaste_no_copy_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_no_copy_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_autopaste_no_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <!-- Smart paste toggle -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="6dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_smart_paste_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_smart_paste_badge" android:textColor="@color/text_tertiary" android:textSize="11sp" android:background="@drawable/tag_bg" android:paddingStart="7dp" android:paddingEnd="7dp" android:paddingTop="2dp" android:paddingBottom="2dp" android:layout_marginStart="6dp" tools:ignore="SmallSp"/>
+                </LinearLayout>
+                <TextView android:id="@+id/tv_smart_paste_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_smart_paste_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_smart_paste"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_hide_headsup_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_hide_headsup_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_hide_headsup_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_hide_headsup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_silence_push_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_silence_push_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_silence_push_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_silence_push"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_back_action_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_back_action_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_back_action_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_back_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_back_to_shade_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_back_to_shade_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_back_to_shade_off" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_back_to_shade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="14dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_close_to_shade_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_close_to_shade_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_close_to_shade_off" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_close_to_shade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- ── Display mode ────────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_display_mode"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_display_mode_overlay_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/settings_display_mode_overlay_desc" android:textColor="@color/text_dim" android:textSize="11sp" android:lineSpacingMultiplier="1.25" android:layout_marginTop="2dp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_mode_overlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="14dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_display_mode_shade_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/settings_display_mode_shade_desc" android:textColor="@color/text_dim" android:textSize="11sp" android:lineSpacingMultiplier="1.25" android:layout_marginTop="2dp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_mode_shade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_shade_duration_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_shade_duration_value" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/sb_shade_duration"
+                style="@style/SeekbarSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="270000"
+                android:layout_marginTop="6dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_shade_duration_desc"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:lineSpacingMultiplier="1.25"
+                android:layout_marginTop="6dp"/>
+
+        </LinearLayout>
+
+        <!-- ── Copy animations ─────────────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="6dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_sounds_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_sounds_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_sounds_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_sounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- Language picker -->
+        <!-- (moved to top — see before APP FILTER section) -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="6dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_copy_lottie_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_copy_lottie_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_copy_lottie_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/sw_fx_copy_lottie_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="6dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_autopaste_lottie_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_autopaste_lottie_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_autopaste_lottie_desc" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/sw_fx_autopaste_lottie_en"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="8dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="2dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                    android:text="@string/settings_copy_speed_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/val_fx_copy_lottie_speed"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:textColor="@color/onboarding_chip_dim" android:textSize="12sp"
+                    android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_copy_lottie_speed"
+                style="@style/SeekbarSlider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="300"
+                android:min="50"/>
+        </LinearLayout>
+
+        <!--
+            Reveal-effect intensity picker. Two tiers:
+            "Standard" (FX_LITE) — the default, full chromatic reveal
+            trimmed of two barely-visible layers, balanced for the
+            average mid-range SoC; "Lite" (FX_ULTRA) — the cheaper
+            option for low-end devices (Snapdragon 4-series, MediaTek
+            Helio A) where every saveLayer adds visible jank.
+        -->
+        <!--
+            Advanced FX panel. Hidden by default behind one tap so the
+            settings page starts with everyday toggles only.
+            Wrapper LinearLayout (id=advanced_panel) is GONE by
+            default; the toggle button (btn_toggle_advanced) above
+            flips it to VISIBLE.
+        -->
+        <Button
+            android:id="@+id/btn_reset_all"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/settings_btn_reset_all"
+            android:textColor="@color/text_settings_btn"
+            android:textSize="13sp"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_secondary"
+            android:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_open_debug"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/settings_btn_debug"
+            android:textColor="@color/text_settings_btn"
+            android:textSize="13sp"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_secondary"
+            android:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_toggle_advanced"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/settings_btn_advanced"
+            android:textColor="@color/text_settings_btn"
+            android:textSize="13sp"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_secondary"
+            android:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginBottom="14dp"/>
+
+        <LinearLayout
+            android:id="@+id/advanced_panel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="6dp"
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_anim_perf_title"
+                android:textColor="@color/text_chip_strong"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_anim_perf_desc"
+                android:textColor="@color/text_dim"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingTop="6dp" android:paddingBottom="6dp"
+                    android:id="@+id/row_fx_lite"
+                    android:clickable="true" android:focusable="true">
+                    <com.midtano.otp.widget.AnimatedCheckbox
+                        android:id="@+id/rb_fx_lite"
+                        style="@style/CB6"
+                        android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/settings_fx_lite" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingTop="6dp" android:paddingBottom="6dp"
+                    android:id="@+id/row_fx_ultra"
+                    android:clickable="true" android:focusable="true">
+                    <com.midtano.otp.widget.AnimatedCheckbox
+                        android:id="@+id/rb_fx_ultra"
+                        style="@style/CB6"
+                        android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/settings_fx_ultra" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ── Overlay-effect fine-tuning ────────────────────────── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_fx"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="6dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_fx_apply_note"
+            android:textColor="@color/text_dim"
+            android:textSize="11sp"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="14dp">
+
+            <!-- 1. Master "panel mute" toggle -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="6dp">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_fx_queue_mute_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                    <TextView android:id="@+id/tv_fx_panel_mute_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_panel_mute_off" android:textColor="@color/text_dim" android:textSize="11sp"/>
+                </LinearLayout>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                    android:id="@+id/sw_fx_panel_mute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/card_divider" android:layout_marginTop="8dp" android:layout_marginBottom="6dp"/>
+
+            <!-- 2. Perimeter glow group -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_perim_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_perim_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_brightness" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_perim_inten" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_perim_inten" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_outer_glow" android:textColor="@color/onboarding_chip_dim" android:textSize="12sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_perim_outer" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_outer_halo_width" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_perim_outer_w" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_perim_outer_w" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="40"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_outer_halo_blur" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_perim_outer_bl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_perim_outer_bl" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="40"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_mid_stroke_width" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_perim_mid_w" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_perim_mid_w" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="20"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_mid_stroke_blur" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_perim_mid_bl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_perim_mid_bl" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="20"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_inner_stroke_width" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_perim_in_w" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_perim_in_w" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="50"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/card_divider" android:layout_marginTop="10dp" android:layout_marginBottom="6dp"/>
+
+            <!-- 3. Breathing -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_breathing_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_breath_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_amplitude" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_breath_amt" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_breath_amt" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="500"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_period_ms" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_breath_period" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_breath_period" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="6000"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/card_divider" android:layout_marginTop="10dp" android:layout_marginBottom="6dp"/>
+
+            <!-- 4. Rotation -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_rotation_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_rot_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_period_ms" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_rot_period" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_rot_period" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="30000"/>
+
+            <!-- Sweep-stops + hue-range knobs -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_sweep_stops" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_sweep_stops" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_sweep_stops" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="10" android:min="1"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_hue_range" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_sweep_hue_range" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_sweep_hue_range" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="180"/>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/card_divider" android:layout_marginTop="10dp" android:layout_marginBottom="6dp"/>
+
+            <!-- 5. Halo -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_halo_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_halo_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_intensity" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_halo_inten" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_halo_inten" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+            <!-- 6. Wave -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_wave_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_wave_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_intensity" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_wave_inten" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_wave_inten" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+            <!-- 7. Halftone -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_halftone_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_halftone_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_intensity" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_halftone_inten" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_halftone_inten" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+            <!-- 8. Spark -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_spark_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_spark_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_intensity" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_spark_inten" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_spark_inten" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+            <!-- 9. Countdown -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_countdown_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_countdown_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_intensity" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_countdown_inten" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_countdown_inten" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_fx_countdown_style" android:textColor="@color/text_tertiary" android:textSize="11sp" android:layout_marginTop="6dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingTop="6dp" android:paddingBottom="6dp"
+                    android:id="@+id/row_fx_cd_shrink"
+                    android:clickable="true" android:focusable="true">
+                    <com.midtano.otp.widget.AnimatedCheckbox
+                        android:id="@+id/rb_fx_cd_shrink"
+                        style="@style/CB6"
+                        android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/settings_fx_cd_shrink"
+                        android:textColor="@color/text_chip_strong" android:textSize="12sp"/>
+                </LinearLayout>
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:paddingTop="6dp" android:paddingBottom="6dp"
+                    android:id="@+id/row_fx_cd_sweep"
+                    android:clickable="true" android:focusable="true">
+                    <com.midtano.otp.widget.AnimatedCheckbox
+                        android:id="@+id/rb_fx_cd_sweep"
+                        style="@style/CB6"
+                        android:layout_marginEnd="12dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="@string/settings_fx_cd_sweep"
+                        android:textColor="@color/text_chip_strong" android:textSize="12sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 10. Frosted-glass blur (toggle only) -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_blur_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <com.midtano.otp.widget.SpringSwitch style="@style/SS7" android:id="@+id/sw_fx_blur_en" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/card_divider" android:layout_marginTop="10dp" android:layout_marginBottom="6dp"/>
+
+            <!-- 11. Timings -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_reveal_duration" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_reveal_ms" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_reveal_ms" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="3000"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_dismiss_duration" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_dismiss_ms" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_dismiss_ms" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="1000"/>
+
+            <!-- 12. Edge fade -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="4dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="@string/settings_fx_edge_fade" android:textColor="@color/text_tertiary" android:textSize="11sp"/>
+                <TextView android:id="@+id/val_fx_edge_fade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/onboarding_chip_dim" android:textSize="11sp" android:fontFamily="@font/jetbrains_mono"/>
+            </LinearLayout>
+            <SeekBar android:id="@+id/sb_fx_edge_fade" style="@style/SeekbarSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100"/>
+
+        </LinearLayout>
+
+        <!-- ── Trigger words ─────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_keywords"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_keywords_desc"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingMultiplier="1.3"/>
+
+            <com.midtano.otp.widget.FlowLayout
+                android:id="@+id/triggers_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
+
+                <EditText
+                    android:id="@+id/et_new_trigger"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_bg"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/text_chip_strong"
+                    android:textColorHint="@color/text_input_hint"
+                    android:textSize="13sp"
+                    android:hint="@string/settings_hint_new_trigger"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:autofillHints="off"
+                    android:inputType="text"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btn_add_trigger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:minWidth="88dp"
+                    android:text="@string/settings_btn_add_trigger"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_reset_triggers"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:text="@string/settings_btn_reset_triggers"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_button_dim"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+        </LinearLayout>
+
+        <!-- ── Stop words ──────────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_stop_words"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_stop_words_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_stop_words_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_stop_on" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_stop_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_stop_words_desc"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingMultiplier="1.3"/>
+
+            <com.midtano.otp.widget.FlowLayout
+                android:id="@+id/stop_words_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
+
+                <EditText
+                    android:id="@+id/et_new_stop"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_bg"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/text_chip_strong"
+                    android:textColorHint="@color/text_input_hint"
+                    android:textSize="13sp"
+                    android:hint="@string/settings_hint_new_stop"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:autofillHints="off"
+                    android:inputType="text"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btn_add_stop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:minWidth="88dp"
+                    android:text="@string/settings_btn_add_stop"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_clear_stops"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:text="@string/settings_btn_clear_stops"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_button_dim"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+        </LinearLayout>
+
+        <!-- ── Ignored phrases ─────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_ignore"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_ignore_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_ignore_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_ignore_on" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_ignore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_ignore_desc"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingMultiplier="1.3"/>
+
+            <com.midtano.otp.widget.FlowLayout
+                android:id="@+id/ignore_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
+
+                <EditText
+                    android:id="@+id/et_new_ignore"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_bg"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/text_chip_strong"
+                    android:textColorHint="@color/text_input_hint"
+                    android:textSize="13sp"
+                    android:hint="@string/settings_hint_new_ignore"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:autofillHints="off"
+                    android:inputType="text"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btn_add_ignore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:minWidth="88dp"
+                    android:text="@string/settings_btn_add_ignore"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_reset_ignore"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:text="@string/settings_btn_reset_ignore"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_button_dim"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+        </LinearLayout>
+
+        <!-- ── Cleanup phrases ─────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_cleanup"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_cleanup_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_cleanup_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_cleanup_on" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_cleanup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_cleanup_desc"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingMultiplier="1.3"/>
+
+            <com.midtano.otp.widget.FlowLayout
+                android:id="@+id/cleanup_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
+
+                <EditText
+                    android:id="@+id/et_new_cleanup"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_bg"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/text_chip_strong"
+                    android:textColorHint="@color/text_input_hint"
+                    android:textSize="13sp"
+                    android:hint="@string/settings_hint_new_cleanup"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:autofillHints="off"
+                    android:inputType="text"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btn_add_cleanup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:minWidth="88dp"
+                    android:text="@string/settings_btn_add_cleanup"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_reset_cleanup"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:text="@string/settings_btn_reset_cleanup"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_button_dim"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+        </LinearLayout>
+
+        <!-- ── Currency guard ──────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_currency"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_currency_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_currency_desc" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/desc_currency_on" android:textColor="@color/text_dim" android:textSize="11sp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_currency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_currency_desc"
+                android:textColor="@color/text_muted"
+                android:textSize="11sp"
+                android:layout_marginBottom="10dp"
+                android:lineSpacingMultiplier="1.3"/>
+
+            <com.midtano.otp.widget.FlowLayout
+                android:id="@+id/currency_flow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
+
+                <EditText
+                    android:id="@+id/et_new_currency"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/input_bg"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:textColor="@color/text_chip_strong"
+                    android:textColorHint="@color/text_input_hint"
+                    android:textSize="13sp"
+                    android:hint="@string/settings_hint_new_currency"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:autofillHints="off"
+                    android:inputType="text"
+                    android:layout_marginEnd="8dp"/>
+
+                <Button
+                    android:id="@+id/btn_add_currency"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:minWidth="88dp"
+                    android:text="@string/settings_btn_add_currency"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_reset_currency"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:text="@string/settings_btn_reset_currency"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_button_dim"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_skip_foreground_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_skip_fg_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/settings_skip_foreground_desc" android:textColor="@color/text_dim" android:textSize="11sp" android:lineSpacingMultiplier="1.25" android:layout_marginTop="2dp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_skip_foreground"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/card_bg"
+            android:paddingStart="16dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:layout_marginBottom="14dp">
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/settings_normalize_digits_title" android:textColor="@color/text_chip_strong" android:textSize="13sp"/>
+                <TextView android:id="@+id/tv_normalize_desc" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/settings_normalize_digits_desc" android:textColor="@color/text_dim" android:textSize="11sp" android:lineSpacingMultiplier="1.25" android:layout_marginTop="2dp"/>
+            </LinearLayout>
+            <com.midtano.otp.widget.SpringSwitch style="@style/SS7"
+                android:id="@+id/switch_normalize_digits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- ── Regex ──────────────────────────────────────────────── -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/section_divider"
+            android:layout_marginBottom="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_regex"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <EditText android:id="@+id/et_regex"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textColor="@color/text_chip_strong" android:textSize="12sp" android:fontFamily="monospace"
+                android:background="@drawable/input_bg" android:padding="12dp"
+                android:singleLine="true" android:layout_marginBottom="8dp"
+                android:autofillHints="off" android:inputType="text"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:layout_marginBottom="8dp" tools:ignore="ButtonStyle">
+                <Button android:id="@+id/btn_regex_save"
+                    android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1"
+                    android:text="@string/settings_btn_regex_save"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong" android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp" android:insetBottom="0dp"
+                    android:layout_marginEnd="6dp"/>
+                <Button android:id="@+id/btn_regex_reset"
+                    android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1"
+                    android:text="@string/settings_btn_regex_reset"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_button_dim" android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp" android:insetBottom="0dp"/>
+            </LinearLayout>
+
+            <TextView android:id="@+id/tv_regex_status"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textSize="11sp" android:textColor="@color/status_pill_ok"/>
+        </LinearLayout>
+
+        <!-- ── Recognition test ─────────────────────────────────── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_test"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_test_desc"
+                android:textColor="@color/text_muted" android:textSize="11sp"
+                android:lineSpacingMultiplier="1.3"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText android:id="@+id/et_test_input"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:minLines="3" android:maxLines="8" android:gravity="top|start"
+                android:textColor="@color/text_chip_strong" android:textSize="12sp"
+                android:background="@drawable/input_bg" android:padding="12dp"
+                android:layout_marginBottom="8dp"
+                android:autofillHints="off" android:inputType="textMultiLine"
+                android:textColorHint="@color/text_input_hint"
+                android:hint="@string/settings_hint_test_input"/>
+
+            <Button android:id="@+id/btn_test_run"
+                android:layout_width="match_parent" android:layout_height="40dp"
+                android:text="@string/settings_btn_test_run"
+                android:background="@drawable/btn_secondary"
+                android:backgroundTint="@null"
+                android:textColor="@color/text_chip_strong" android:textSize="12sp"
+                android:textAllCaps="false"
+                android:insetTop="0dp" android:insetBottom="0dp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView android:id="@+id/tv_test_result"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textSize="11sp" android:textColor="@color/text_settings_btn"
+                android:fontFamily="monospace"/>
+        </LinearLayout>
+
+        <!-- ── Notification log ──────────────────────────────────── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_section_notif_log"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp">
+
+            <TextView
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_notif_log_desc"
+                android:textColor="@color/text_muted" android:textSize="11sp"
+                android:lineSpacingMultiplier="1.3"
+                android:layout_marginBottom="10dp"/>
+
+            <!-- Fixed-height scroll window for the log so a single long
+                 entry doesn't make the whole settings screen scroll
+                 forever. nestedScrollingEnabled lets users drag inside
+                 the box without the outer scroller stealing the gesture. -->
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:background="@drawable/input_bg"
+                android:padding="12dp"
+                android:nestedScrollingEnabled="true"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@drawable/app_scrollbar_thumb"
+                android:scrollbarSize="3dp"
+                tools:ignore="NestedScrolling"
+                android:fadeScrollbars="true">
+
+                <TextView android:id="@+id/tv_last_notif"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_settings_btn" android:textSize="11sp"
+                    android:fontFamily="monospace"
+                    android:textIsSelectable="true"
+                    android:text="@string/settings_log_empty"/>
+            </ScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                tools:ignore="ButtonStyle">
+                <Button android:id="@+id/btn_last_notif_refresh"
+                    android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1"
+                    android:text="@string/settings_btn_log_refresh"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_chip_strong" android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp" android:insetBottom="0dp"
+                    android:layout_marginEnd="6dp"/>
+                <Button android:id="@+id/btn_last_notif_clear"
+                    android:layout_width="0dp" android:layout_height="40dp" android:layout_weight="1"
+                    android:text="@string/settings_btn_log_clear"
+                    android:background="@drawable/btn_secondary"
+                    android:backgroundTint="@null"
+                    android:textColor="@color/text_button_dim" android:textSize="12sp"
+                    android:textAllCaps="false"
+                    android:insetTop="0dp" android:insetBottom="0dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    About dialog content view.
+
+    Triggered by the easter-egg tap on the build-info footer of
+    MainActivity (no visual hint that it's tappable, deliberately —
+    see ui/about/AboutDialog.kt).
+
+    Layout shape:
+      ┌───────────────────────────────────────┐
+      │  ▣  OTP Overlay                       │
+      │     One-line tagline                  │
+      │                                       │
+      │     Version  · Build hash · time      │
+      │                                       │
+      │     ── REPOSITORY ──                  │
+      │     ┌──────────────────────────────┐  │
+      │     │ Open on GitHub          ›    │  │
+      │     │ Source, docs, releases       │  │
+      │     └──────────────────────────────┘  │
+      │     ┌──────────────────────────────┐  │
+      │     │ Latest release           ›   │  │
+      │     │ …                            │  │
+      │     └──────────────────────────────┘  │
+      │     ... (more rows)                   │
+      │                                       │
+      │     [        Close        ]           │
+      └───────────────────────────────────────┘
+
+    Each row is its own LinearLayout with @drawable/about_link_row_bg
+    so the press state matches the rest of the app's design.
+
+    All five rows route through Intent.ACTION_VIEW; the app makes no
+    network requests itself, so adding new rows is purely a layout
+    change.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:overScrollMode="ifContentScrolls">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="22dp"
+        android:paddingBottom="18dp">
+
+        <!-- Header: a single emoji Lottie centred above the
+             version block. The Lottie auto-plays and loops while
+             the dialog is on screen and is recoloured to a flat
+             white in AboutDialog.kt so it matches the dark/white
+             design system. -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_about_header"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="14dp"
+            app:lottie_rawRes="@raw/lottie_emoji_about"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_speed="1.0"
+            android:contentDescription="@null"/>
+
+        <!-- Version + build line. Populated programmatically.
+             Centred horizontally so the version block stays
+             visually aligned with the Lottie header above. -->
+        <TextView
+            android:id="@+id/tv_about_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            android:fontFamily="@font/jetbrains_mono"
+            android:layout_marginBottom="2dp"
+            tools:ignore="SmallSp"
+            xmlns:tools="http://schemas.android.com/tools"/>
+
+        <TextView
+            android:id="@+id/tv_about_build"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:fontFamily="@font/jetbrains_mono"
+            android:layout_marginBottom="20dp"
+            tools:ignore="SmallSp"
+            xmlns:tools="http://schemas.android.com/tools"/>
+
+        <!-- Section header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_section_links"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textAllCaps="true"
+            android:letterSpacing="0.12"
+            android:layout_marginBottom="8dp"
+            tools:ignore="SmallSp"
+            xmlns:tools="http://schemas.android.com/tools"/>
+
+        <!-- Row template repeated 5x. Each carries its own click
+             handler bound in AboutDialog.kt; the title / subtitle
+             pair gives the row enough surface area to look like a
+             rich list item without needing a chevron icon. -->
+        <LinearLayout
+            android:id="@+id/about_row_repo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/about_link_row_bg"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_repo_title"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_repo_subtitle"
+                android:textColor="@color/text_tertiary"
+                android:textSize="11sp"
+                android:layout_marginTop="2dp"
+                tools:ignore="SmallSp"
+                xmlns:tools="http://schemas.android.com/tools"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/about_row_release"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/about_link_row_bg"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_release_title"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_release_subtitle"
+                android:textColor="@color/text_tertiary"
+                android:textSize="11sp"
+                android:layout_marginTop="2dp"
+                tools:ignore="SmallSp"
+                xmlns:tools="http://schemas.android.com/tools"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/about_row_issues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/about_link_row_bg"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_issues_title"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_issues_subtitle"
+                android:textColor="@color/text_tertiary"
+                android:textSize="11sp"
+                android:layout_marginTop="2dp"
+                tools:ignore="SmallSp"
+                xmlns:tools="http://schemas.android.com/tools"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/about_row_contribute"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/about_link_row_bg"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_contribute_title"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_contribute_subtitle"
+                android:textColor="@color/text_tertiary"
+                android:textSize="11sp"
+                android:layout_marginTop="2dp"
+                tools:ignore="SmallSp"
+                xmlns:tools="http://schemas.android.com/tools"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/about_row_contributors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/about_link_row_bg"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginBottom="20dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_contributors_title"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/about_link_contributors_subtitle"
+                android:textColor="@color/text_tertiary"
+                android:textSize="11sp"
+                android:layout_marginTop="2dp"
+                tools:ignore="SmallSp"
+                xmlns:tools="http://schemas.android.com/tools"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/about_btn_close"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:text="@string/about_close"
+            android:textColor="@color/text_settings_btn"
+            android:textSize="13sp"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_secondary"
+            android:backgroundTint="@null"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"/>
+    </LinearLayout>
+</ScrollView>

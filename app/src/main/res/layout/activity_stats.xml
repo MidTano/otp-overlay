@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Stats dashboard: 7-day chart, top senders, source split, logs. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" 
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:scrollbarThumbVertical="@drawable/app_scrollbar_thumb"
+    android:scrollbarSize="3dp"
+    android:fadeScrollbars="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_title"
+            android:textColor="@color/text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_subtitle"
+            android:textColor="@color/text_muted"
+            android:textSize="12sp"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- Headline numbers -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:layout_marginBottom="14dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="14dp"
+                android:layout_marginEnd="6dp">
+                <TextView android:id="@+id/stat_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/jetbrains_mono"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_total_codes"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="@drawable/card_bg"
+                android:padding="14dp"
+                android:layout_marginStart="6dp">
+                <TextView android:id="@+id/stat_today"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="0"
+                    android:textColor="@color/text_primary"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/jetbrains_mono"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stats_today"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="11sp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 7-day bar chart -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_section_week"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="6dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="14dp">
+            <com.midtano.otp.widget.BarChartView
+                android:id="@+id/chart_week"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"/>
+        </LinearLayout>
+
+        <!-- Top senders -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_section_top_senders"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="6dp"/>
+
+        <LinearLayout
+            android:id="@+id/senders_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="6dp"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- Source split -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_section_sources"
+            android:textColor="@color/text_quaternary"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.3"
+            android:layout_marginBottom="6dp"/>
+
+        <LinearLayout
+            android:id="@+id/sources_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/card_bg"
+            android:padding="14dp"
+            android:layout_marginBottom="14dp"/>
+
+        <Button
+            android:id="@+id/btn_clear_stats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/stats_btn_clear"
+            android:textColor="@color/text_settings_btn"
+            android:textSize="12sp"
+            android:textAllCaps="false"
+            android:background="@drawable/btn_secondary"
+            android:layout_marginBottom="20dp"/>
+
+    </LinearLayout>
+</ScrollView>

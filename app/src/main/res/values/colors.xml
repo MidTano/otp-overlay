@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Centralised palette. Anything new that draws in Kotlin code
+        should reference one of these names via R.color.* / ContextCompat
+        or live here first.
+    -->
+
+    <!-- ── Brand ─────────────────────────────────────────────────── -->
+    <color name="brand_primary">#6C63FF</color>
+    <color name="brand_primary_dark">#0B0B0B</color>
+    <color name="brand_accent">#03DAC5</color>
+
+    <!-- Window background. Painted by the theme so individual layouts
+         do not need to repeat the same fill (avoids overdraw). -->
+    <color name="window_bg">#0D0D0D</color>
+
+    <!-- Subtle outline / divider. -->
+    <color name="surface_outline">#33FFFFFF</color>
+    <color name="surface_outline_dim">#1AFFFFFF</color>
+
+    <!-- ──────────────────────────────────────────────────────────────
+         Text foreground scale. Five semantic tiers used across the
+         app, with explicit (calibrated) values that match the
+         existing visual design.
+         ────────────────────────────────────────────────────────── -->
+    <color name="text_primary">#FFFFFFFF</color>     <!-- pure white, headings + code -->
+    <color name="text_secondary">#FFB8B8B8</color>   <!-- sender labels, supporting copy -->
+    <color name="text_tertiary">#FF888888</color>    <!-- meta labels, captions -->
+    <color name="text_quaternary">#FF5A5A5A</color>  <!-- section titles, deprioritised text -->
+    <color name="text_on_light">#0D0D0D</color>      <!-- only used when bg is light -->
+
+    <!-- Status pill (regex valid / invalid in Settings). -->
+    <color name="status_pill_ok">#44AA44</color>
+    <color name="status_pill_err">#AA4444</color>
+
+    <!-- Onboarding row text colours. -->
+    <color name="onboarding_chip_dim">#B0B0B0</color>
+    <color name="onboarding_btn_done">#6F6F6F</color>
+    <color name="onboarding_chip_required">#D0D0D0</color>
+    <color name="onboarding_chip_optional">#6F6F6F</color>
+
+    <!-- Stats list colours. -->
+    <color name="stats_empty">#7A7A7A</color>
+    <color name="stats_label">#D0D0D0</color>
+    <color name="stats_count">#FFFFFFFF</color>
+
+    <!-- ── Ripple / pressed states ──────────────────────────────── -->
+    <color name="ripple_on_dark">#1FFFFFFF</color>
+
+    <!-- ── SpringSwitch / AnimatedCheckbox shared palette ───────── -->
+    <color name="ss_track_on">#FFFFFF</color>
+    <color name="ss_track_off">#262626</color>
+    <color name="ss_thumb_on">#0D0D0D</color>
+    <color name="ss_thumb_off">#888888</color>
+
+    <color name="ac_bg_on">#6C63FF</color>
+    <color name="ac_bg_off">#1A1A1A</color>
+    <color name="ac_border_on">#6C63FF</color>
+    <color name="ac_border_off">#3A3A3A</color>
+    <color name="ac_check">#FFFFFF</color>
+    <color name="ac_check_dark">#0D0D0D</color>
+
+    <!-- Programmatic SpringSwitch defaults (when no XML attrs are set). -->
+    <color name="ss_default_track_on">#6C63FF</color>
+    <color name="ss_default_track_off">#2A2A2A</color>
+
+    <!-- ── BarChartView ─────────────────────────────────────────── -->
+    <color name="bar_label">#7A7A7A</color>
+    <color name="bar_count">#D0D0D0</color>
+    <color name="bar_filled">#FFFFFFFF</color>
+    <color name="bar_empty">#FF2A2A2A</color>
+
+    <!-- ── SuckInOverlayView (full-screen cinematic transition) ─── -->
+    <color name="suck_in_bg">#0D0D0D</color>
+
+    <!-- ── DigitRowHelper (overlay digit row text) ──────────────── -->
+    <color name="digit_text">#FFFFFFFF</color>
+
+    <!-- ── AppIconResolver fallback brand + test palette ────────── -->
+    <color name="app_icon_fallback_bg">#6C63FF</color>
+    <color name="app_icon_fallback_text">#FFFFFFFF</color>
+
+    <!-- ── OverlayService queue panel divider hairline ──────────── -->
+    <color name="queue_panel_divider">#14FFFFFF</color>
+
+    <!-- Hairline dividers used inside cards / overlay header. -->
+    <color name="card_divider">#1F1F1F</color>
+    <color name="overlay_separator">#2A2A2A</color>
+
+    <!-- ──────────────────────────────────────────────────────────────
+         Extended text-colour palette. The five-tier scale above
+         covers semantic roles; the entries below are tighter shades
+         used in specific contexts where the tier scale would be
+         either too dark or too bright.
+         ────────────────────────────────────────────────────────── -->
+    <color name="text_muted">#FF7A7A7A</color>          <!-- meta-info close to text_tertiary, slightly darker -->
+    <color name="text_subtle">#FF999999</color>         <!-- supporting copy slightly lighter than text_tertiary -->
+    <color name="text_dim">#FF666666</color>            <!-- captions and subtitles -->
+    <color name="text_chip">#FFCCCCCC</color>           <!-- chip body text -->
+    <color name="text_chip_strong">#FFD0D0D0</color>    <!-- chip text on stronger background -->
+    <color name="text_button_secondary">#FFEEEEEE</color>
+    <color name="text_settings_btn">#FFC0C0C0</color>   <!-- settings button face -->
+    <color name="text_button_muted">#FFA0A0A0</color>
+    <color name="text_button_dim">#FF9A9A9A</color>     <!-- de-emphasised button text -->
+    <color name="text_button_bright">#FFEFEFEF</color>
+    <color name="text_input_hint">#FF555555</color>     <!-- dim hints -->
+    <color name="text_input_hint_dim">#FF4A4A4A</color> <!-- dimmer hints -->
+    <color name="text_build_chip">#FF3A3A3A</color>
+</resources>

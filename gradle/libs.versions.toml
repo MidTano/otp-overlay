@@ -1,0 +1,92 @@
+[versions]
+# Android Gradle Plugin 9.2.x — supports compileSdk 36.1, requires
+# Gradle 9.x, JDK 17+ (JDK 21 recommended). Released April 2026.
+agp = "9.2.1"
+# Kotlin 2.3.20 — pairs with AGP 9.2 (K2 compiler default).
+# Bumped from 2.2.20 in May 2026: Kotlin 2.2 reached EOL on
+# 2025-12-16 (eosl.date), so it no longer receives security
+# updates. 2.3.20 is the current stable on the kotlinlang.org
+# stable channel and is what Detekt 1.23.8 / Robolectric 4.16.1
+# track for K2 frontend compatibility.
+kotlin = "2.3.20"
+appcompat = "1.7.1"
+core = "1.18.0"
+constraintlayout = "2.2.1"
+dynamicanimation = "1.1.0"
+recyclerview = "1.4.0"
+palette = "1.0.0"
+lottie = "6.7.1"
+coroutines = "1.11.0"
+# Unit-test stack — JVM only, JUnit 4. Pure-function modules use
+# JUnit on its own; modules that need an Android runtime
+# (Context, SharedPreferences, Notification, Handler) use
+# Robolectric in offscreen-graphics mode so the test pass still
+# runs on a build server without an emulator.
+junit = "4.13.2"
+# Robolectric 4.16.1 — current stable line; tracks Kotlin 2.3
+# frontend and ships fixes for the legacy graphics mode.
+robolectric = "4.16.1"
+androidx-test = "1.7.0"
+androidx-test-ext = "1.3.0"
+androidx-test-runner = "1.7.0"
+androidx-test-rules = "1.7.0"
+androidx-test-uiautomator = "2.3.0"
+espresso = "3.7.0"
+benchmark = "1.5.0-alpha06"
+mockito = "5.23.0"
+mockito-kotlin = "6.3.0"
+# Static analysis. Detekt 1.23.8 supports Kotlin 2.2 / JDK 21 and
+# tracks the K2 compiler frontend for type-resolved rules. The
+# K2 typing API is stable across Kotlin 2.2 → 2.3, so Detekt
+# 1.23.8 keeps working under the bumped Kotlin 2.3.20 toolchain.
+detekt = "1.23.8"
+# JaCoCo 0.8.13 is the first release with native Java 21 bytecode
+# support; earlier versions silently produced empty coverage on
+# K2-compiled bytecode.
+jacoco = "0.8.13"
+
+[libraries]
+androidx-appcompat        = { group = "androidx.appcompat",        name = "appcompat",        version.ref = "appcompat" }
+androidx-core             = { group = "androidx.core",             name = "core-ktx",         version.ref = "core" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-dynamicanimation = { group = "androidx.dynamicanimation", name = "dynamicanimation", version.ref = "dynamicanimation" }
+androidx-recyclerview     = { group = "androidx.recyclerview",     name = "recyclerview",     version.ref = "recyclerview" }
+androidx-palette          = { group = "androidx.palette",          name = "palette",          version.ref = "palette" }
+lottie                    = { group = "com.airbnb.android",        name = "lottie",           version.ref = "lottie" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx",    name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test    = { group = "org.jetbrains.kotlinx",    name = "kotlinx-coroutines-test",    version.ref = "coroutines" }
+junit                      = { group = "junit",                    name = "junit",            version.ref = "junit" }
+robolectric                = { group = "org.robolectric",          name = "robolectric",      version.ref = "robolectric" }
+androidx-test-core         = { group = "androidx.test",            name = "core",             version.ref = "androidx-test" }
+androidx-test-ext-junit    = { group = "androidx.test.ext",        name = "junit",            version.ref = "androidx-test-ext" }
+androidx-test-runner       = { group = "androidx.test",            name = "runner",           version.ref = "androidx-test-runner" }
+androidx-test-rules        = { group = "androidx.test",            name = "rules",            version.ref = "androidx-test-rules" }
+androidx-test-uiautomator  = { group = "androidx.test.uiautomator", name = "uiautomator",     version.ref = "androidx-test-uiautomator" }
+espresso-core              = { group = "androidx.test.espresso",   name = "espresso-core",    version.ref = "espresso" }
+espresso-contrib           = { group = "androidx.test.espresso",   name = "espresso-contrib", version.ref = "espresso" }
+espresso-intents           = { group = "androidx.test.espresso",   name = "espresso-intents", version.ref = "espresso" }
+benchmark-junit4           = { group = "androidx.benchmark",       name = "benchmark-junit4", version.ref = "benchmark" }
+mockito-core               = { group = "org.mockito",              name = "mockito-core",     version.ref = "mockito" }
+mockito-kotlin             = { group = "org.mockito.kotlin",       name = "mockito-kotlin",   version.ref = "mockito-kotlin" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library     = { id = "com.android.library",     version.ref = "agp" }
+benchmark           = { id = "androidx.benchmark",      version.ref = "benchmark" }
+detekt              = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+[bundles]
+# Convenience grouping for the AndroidX deps the app pulls in
+# wholesale. Use `implementation libs.bundles.androidx` if a future
+# refactor wants to consume them in one line; the explicit
+# per-library declarations in app/build.gradle.kts keep grepping for a
+# specific dep cheap and stay the recommended form for the app
+# module.
+androidx = [
+    "androidx-appcompat",
+    "androidx-core",
+    "androidx-constraintlayout",
+    "androidx-dynamicanimation",
+    "androidx-recyclerview",
+    "androidx-palette",
+]

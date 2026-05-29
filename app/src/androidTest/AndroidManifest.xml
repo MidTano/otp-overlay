@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Test manifest fragment merged into the instrumentation APK.
+
+    The single purpose here is to forward the SCREEN_ON keyguard /
+    wakelock pair to the test process so `OverlayServiceLifecycleTest`
+    can wake / unlock the device before attaching the overlay
+    window. The test uses `UiDevice.wakeUp()` which calls
+    `PowerManager.WakeLock` under the hood.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+
+</manifest>

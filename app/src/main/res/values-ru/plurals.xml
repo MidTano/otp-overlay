@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Russian plurals: one (1, 21, 31), few (2-4, 22-24), many (0, 5-20). -->
+    <plurals name="diag_text_length_plural">
+        <item quantity="one">Длина текста: %1$d символ\n</item>
+        <item quantity="few">Длина текста: %1$d символа\n</item>
+        <item quantity="many">Длина текста: %1$d символов\n</item>
+        <item quantity="other">Длина текста: %1$d символа\n</item>
+    </plurals>
+
+    <plurals name="diag_cleanup_applied_plural">
+        <item quantity="one">Очистка применена — текст сокращён до %1$d символа\n</item>
+        <item quantity="few">Очистка применена — текст сокращён до %1$d символов\n</item>
+        <item quantity="many">Очистка применена — текст сокращён до %1$d символов\n</item>
+        <item quantity="other">Очистка применена — текст сокращён до %1$d символов\n</item>
+    </plurals>
+</resources>

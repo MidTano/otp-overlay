@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Plural quantity strings. Lint flagged the diagnostic
+    "%1$d characters" / "%1$d chars" patterns as plural candidates.
+    English has only `one` and `other` forms; the RU translations under
+    values-ru/plurals.xml carry the full Slavic `one/few/many/other`
+    set so the diagnostics read naturally in either locale.
+-->
+<resources>
+    <!-- Diagnostic line: "Text length: N characters". -->
+    <plurals name="diag_text_length_plural">
+        <item quantity="one">Text length: %1$d character\n</item>
+        <item quantity="other">Text length: %1$d characters\n</item>
+    </plurals>
+
+    <!-- Diagnostic line: "Cleanup applied — text trimmed to N chars". -->
+    <plurals name="diag_cleanup_applied_plural">
+        <item quantity="one">Cleanup applied — text trimmed to %1$d char\n</item>
+        <item quantity="other">Cleanup applied — text trimmed to %1$d chars\n</item>
+    </plurals>
+</resources>

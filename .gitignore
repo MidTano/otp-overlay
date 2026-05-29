@@ -1,0 +1,57 @@
+# ── Build / IDE artefacts ────────────────────────────────────────────
+.gradle/
+.idea/
+.kotlin/
+build/
+captures/
+*.iml
+.DS_Store
+.cxx/
+
+# ── APK / signed artefacts ───────────────────────────────────────────
+app/release/
+*.apk
+*.aab
+*.apk.idsig
+release-builds/
+
+# ── Local-only Gradle state ──────────────────────────────────────────
+local.properties
+gradle-*.log
+*.log
+
+# ── Eclipse / Buildship / AGP-generated IDE descriptors ──────────────
+# AGP drops these on disk during command-line builds; never tracked.
+.project
+.classpath
+.settings/
+app/.project
+app/.classpath
+app/.settings/
+
+# ── Source asset packs ───────────────────────────────────────────────
+# Lottie JSON sources are checked in under res/raw/; the upstream
+# pack folder is not tracked.
+KawaiiEmoji/
+
+# ── Signing material ─────────────────────────────────────────────────
+# Keystores and any properties carrying their passwords NEVER
+# belong in the repo. CI / local builds must supply these via
+# environment variables or a non-tracked keystore.properties file.
+*.jks
+*.keystore
+keystore.properties
+
+# ── Local backup snapshots ───────────────────────────────────────────
+# Use git tags / branches for rollback points; never commit copy-pasted
+# source trees into the working directory.
+.backup/
+
+# ── Microbenchmark scratch files ─────────────────────────────────────
+# Contributors capture before/after runs locally for self-comparison
+# (see benchmark/README.md). The raw `am instrument` output is large,
+# device-specific and never useful to anyone but the author of the
+# run, so it never belongs in version control.
+benchmark/*.txt
+benchmark/scripts/*.txt
+*.benchmark-output.txt

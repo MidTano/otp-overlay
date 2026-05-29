@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Footer chip background for the "Emoji animations from KawaiiEmoji"
+    note on the main screen.
+
+    Visual goal: just enough chrome to read as a tappable element
+    (faint surface tint + 1-dp outline + standard ripple on press)
+    without becoming as loud as a real button. The version /
+    build-info lines above stay as plain text so the footer block
+    keeps reading as a single technical-looking footer cluster, with
+    only the credits row picking up an interactive shape.
+
+    Same construction as @drawable/queue_chip_bg — outer ripple
+    masks the press wave to the rounded-pill outline so the ripple
+    never bleeds outside the chip.
+-->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/ripple_on_dark">
+
+    <item>
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#0AFFFFFF"/>
+                    <corners android:radius="999dp"/>
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@android:color/transparent"/>
+                    <corners android:radius="999dp"/>
+                    <stroke android:width="1dp" android:color="#1FFFFFFF"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+    <!-- Mask defines the ripple bounds (pill silhouette) so the
+         wave is clipped to the chip outline. -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFFFF"/>
+            <corners android:radius="999dp"/>
+        </shape>
+    </item>
+</ripple>

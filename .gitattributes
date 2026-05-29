@@ -1,2 +1,36 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalise line endings across platforms. Without this, a Windows
+# checkout of the repo can rewrite every text file to CRLF on commit
+# and produce noisy diffs on Linux CI runners.
+
+* text=auto eol=lf
+
+# Windows shell wrappers must stay CRLF for cmd.exe to parse them.
+*.bat            text eol=crlf
+*.cmd            text eol=crlf
+
+# Treat known binary formats as binary so git never tries to merge
+# or normalise them.
+*.png            binary
+*.jpg            binary
+*.jpeg           binary
+*.gif            binary
+*.webp           binary
+*.ico            binary
+*.ttf            binary
+*.otf            binary
+*.woff           binary
+*.woff2          binary
+*.zip            binary
+*.jar            binary
+*.apk            binary
+*.aab            binary
+*.keystore       binary
+*.jks            binary
+*.wav            binary
+*.mp3            binary
+*.heapsnapshot   binary
+
+# GitHub linguist hints — keep the language stats focused on app code.
+gradlew         linguist-vendored
+gradlew.bat     linguist-vendored
+gradle/wrapper/* linguist-vendored

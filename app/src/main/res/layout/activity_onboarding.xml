@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MergeRootFrame">
+
+    <!-- ▼ cards phase — rendered directly under the splash overlay ──── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:paddingTop="42dp"
+                android:paddingBottom="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/onboarding_title"
+                    android:textColor="@color/text_primary"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:lineSpacingMultiplier="1.1"
+                    android:layout_marginBottom="6dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/onboarding_subtitle"
+                    android:textColor="@color/text_tertiary"
+                    android:textSize="13sp"
+                    android:lineSpacingMultiplier="1.35"
+                    android:layout_marginBottom="22dp"/>
+
+                <!-- 1. Overlay (required) -->
+                <include layout="@layout/include_perm_card"
+                    android:id="@+id/card_overlay"/>
+
+                <!-- 2. SMS (required) -->
+                <include layout="@layout/include_perm_card"
+                    android:id="@+id/card_sms"/>
+
+                <!-- 3. Notification listener (required) -->
+                <include layout="@layout/include_perm_card"
+                    android:id="@+id/card_notif"/>
+
+                <!-- 4. Accessibility (optional) -->
+                <include layout="@layout/include_perm_card"
+                    android:id="@+id/card_access"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="12dp"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/btn_onboarding_done"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/onboarding_continue"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:background="@drawable/onboard_done_btn"
+                android:enabled="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                tools:ignore="ButtonStyle"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ▼ splash overlay — sits above the cards ────────────────────── -->
+    <!--
+        splash_root — a FrameLayout layered above cards_root.
+        Contains:
+          1. SuckInOverlayView — dark background with the suck-in effect
+          2. LottieAnimationView — centred animation that collapses at the end
+    -->
+    <FrameLayout
+        android:id="@+id/splash_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Dark background with the suck-in effect -->
+        <com.midtano.otp.overlay.SuckInOverlayView
+            android:id="@+id/suck_in_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <!-- Lottie animation centred on the screen -->
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_onboarding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            app:lottie_rawRes="@raw/lottie_onboarding"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"/>
+
+    </FrameLayout>
+
+</FrameLayout>

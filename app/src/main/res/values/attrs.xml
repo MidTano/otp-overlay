@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SpringSwitch">
+        <attr name="ssTrackWidth"  format="dimension"/>
+        <attr name="ssTrackHeight" format="dimension"/>
+        <attr name="ssThumbSize"   format="dimension"/>
+        <attr name="ssThumbInset"  format="dimension"/>
+
+        <attr name="ssTrackColorOn"  format="color"/>
+        <attr name="ssTrackColorOff" format="color"/>
+        <attr name="ssThumbColorOn"  format="color"/>
+        <attr name="ssThumbColorOff" format="color"/>
+
+        <attr name="ssChecked" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="AnimatedCheckbox">
+        <attr name="acBoxWidth"    format="dimension"/>
+        <attr name="acBoxHeight"   format="dimension"/>
+        <attr name="acBorderWidth" format="dimension"/>
+
+        <attr name="acColorOn"    format="color"/>
+        <attr name="acColorOff"   format="color"/>
+        <attr name="acBorderOn"   format="color"/>
+        <attr name="acBorderOff"  format="color"/>
+        <attr name="acCheckColor" format="color"/>
+
+        <attr name="acChecked" format="boolean"/>
+    </declare-styleable>
+</resources>

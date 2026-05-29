@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Android 12+ (API 31+) backup / device-transfer rules.
+
+    The app's manifest sets android:allowBackup="false", so by
+    default no shared-preferences file is included in cloud backup
+    or device transfer. These rules stay in place as a defence in
+    depth — if a future build flips allowBackup back on we still
+    want the privacy-sensitive stores explicitly excluded:
+
+      • last_notif.xml — notification diagnostic captures bodies.
+      • otp_stats.xml  — stats database carries sender names and
+                          the package they came from.
+-->
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="sharedpref" path="last_notif.xml"/>
+        <exclude domain="sharedpref" path="otp_stats.xml"/>
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="sharedpref" path="last_notif.xml"/>
+        <exclude domain="sharedpref" path="otp_stats.xml"/>
+    </device-transfer>
+</data-extraction-rules>

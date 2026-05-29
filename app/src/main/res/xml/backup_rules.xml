@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Pre-Android-12 auto-backup configuration (used by the framework
+    when android:dataExtractionRules is unavailable). Mirrors the
+    exclusions in data_extraction_rules.xml so privacy-sensitive
+    shared-preferences stores can never end up in a cloud backup,
+    even if a future build re-enables android:allowBackup.
+-->
+<full-backup-content>
+    <exclude domain="sharedpref" path="last_notif.xml"/>
+    <exclude domain="sharedpref" path="otp_stats.xml"/>
+</full-backup-content>

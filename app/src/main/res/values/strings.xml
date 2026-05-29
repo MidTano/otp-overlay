@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OTP Overlay</string>
+    <!-- Translatable=false: URLs do not vary by locale. -->
+    <string name="url_github_issues" translatable="false">https://github.com/MidTano/otp-overlay/issues</string>
+    <string name="title_settings">Settings</string>
+    <string name="accessibility_label">OTP Overlay — auto-paste codes</string>
+    <string name="accessibility_description">Pastes one-time passwords (OTPs) from SMS and push notifications into the focused input field on your screen. The service only reads the active text-input element and never reads other on-screen content. No data leaves the device — there is no network access.</string>
+    <string name="app_version_label">v%1$s</string>
+    <string name="onboarding_title">App Setup</string>
+    <string name="onboarding_subtitle">Three permissions are required. The fourth is optional.</string>
+    <string name="onboarding_continue">Continue</string>
+    <string name="apps_search_hint">Search apps…</string>
+    <string name="apps_select_all">Select all</string>
+    <string name="apps_select_none">Clear all</string>
+    <!-- Brand wordmark on the main screen. translatable=false: brand name. -->
+    <string name="brand_wordmark" translatable="false">OTP</string>
+    <!-- Subtitle under the wordmark. translatable=false: typographic accent. -->
+    <string name="brand_subtitle" translatable="false">OVERLAY</string>
+    <!-- Default language code shown in the language toggle (placeholder, replaced at runtime). -->
+    <string name="settings_lang_default" translatable="false">RU</string>
+    <!-- Em-dash placeholder for empty notification log. translatable=false: typography. -->
+    <string name="settings_log_empty" translatable="false">—</string>
+    <!-- Content description for the trigger-word delete button. -->
+    <string name="cd_trigger_delete">Delete</string>
+    <!-- Queue chip counter format. Always shows a leading plus then the count. translatable=false: numeric format. -->
+    <string name="queue_chip_count" translatable="false">+%1$d</string>
+    <!-- Queue title with count: "Queue · 3". translatable=false: typographic separator. -->
+    <string name="queue_title_with_count" translatable="false">%1$s · %2$d</string>
+    <!-- Footer line on the main screen with build id and timestamp. translatable=false: technical info. -->
+    <string name="main_build_info" translatable="false">build %1$s · %2$s</string>
+    <!-- Two-letter language toggle labels. translatable=false: ISO codes. -->
+    <string name="lang_code_en" translatable="false">EN</string>
+    <string name="lang_code_ru" translatable="false">RU</string>
+    <string name="regex_valid">Expression is valid</string>
+    <string name="regex_invalid">Error: %1$s</string>
+    <string name="btn_settings">Settings</string>
+    <string name="btn_stats">Statistics</string>
+    <string name="btn_preview">Show</string>
+    <string name="btn_permissions">Manage permissions</string>
+    <string name="toast_overlay_permission">Overlay permission required</string>
+    <string name="toast_saved">Saved</string>
+    <string name="toast_invalid_regex">Invalid regex</string>
+    <string name="toast_reset">Reset</string>
+    <string name="toast_log_cleared">Log cleared</string>
+    <string name="toast_logs_cleared">Logs cleared</string>
+    <string name="toast_empty_word">Empty word</string>
+    <string name="toast_already_in_list">Already in list</string>
+    <string name="toast_stats_cleared">Statistics cleared</string>
+    <string name="status_no_permission">no permission</string>
+    <string name="status_ready">Ready — service active.</string>
+    <string name="overlay_code_pasted">Code pasted</string>
+    <string name="overlay_queue">Queue</string>
+    <string name="perm_overlay_title">Display over other apps</string>
+    <string name="perm_overlay_desc">Allows showing the code card over any open app.</string>
+    <string name="perm_sms_title">SMS access</string>
+    <string name="perm_sms_desc">Required to receive codes from SMS messages.</string>
+    <string name="perm_notif_title">Notification access</string>
+    <string name="perm_notif_desc">Required to receive codes from bank and messenger push notifications.</string>
+    <string name="perm_accessibility_title">Automatic code paste</string>
+    <string name="perm_accessibility_desc">Automatically pastes code into input field. Optional.</string>
+    <string name="perm_granted">Granted</string>
+    <string name="perm_allow">Allow</string>
+    <string name="perm_chip_granted">GRANTED</string>
+    <string name="perm_chip_required">REQUIRED</string>
+    <string name="perm_chip_optional">OPTIONAL</string>
+    <string name="desc_sounds_on">Plays a soft chime when a code appears and a confirmation when you copy it</string>
+    <string name="desc_sounds_off">All overlay sounds stay silent</string>
+    <string name="desc_copy_lottie_on">A decorative animation plays when you copy</string>
+    <string name="desc_copy_lottie_off">No decorative animation — the card closes instantly</string>
+    <string name="desc_autopaste_lottie_on">An icon appears next to the code on auto-paste</string>
+    <string name="desc_autopaste_lottie_off">No icon next to the code on auto-paste</string>
+    <string name="desc_autopaste_on">Code is pasted automatically into the focused input</string>
+    <string name="desc_autopaste_off">Auto-paste is off — copy manually from clipboard</string>
+    <string name="desc_no_copy_on">After auto-paste the code is not saved to the clipboard</string>
+    <string name="desc_no_copy_off">After auto-paste the code is also saved to the clipboard</string>
+    <string name="desc_hide_headsup_on">Heads-up notification is replaced with a silent shade copy</string>
+    <string name="desc_hide_headsup_off">Original heads-up notification is shown unchanged</string>
+    <string name="desc_silence_on">Push notification is removed from shade right after processing</string>
+    <string name="desc_silence_off">Push notification stays in the shade after processing</string>
+    <string name="desc_back_copy_on">Back gesture copies the code to clipboard and closes the overlay</string>
+    <string name="desc_back_copy_off">Back gesture closes the overlay without copying</string>
+    <string name="desc_filter_on">Codes are extracted only from the apps you ticked below</string>
+    <string name="desc_filter_off">Codes are extracted from notifications of every installed app</string>
+    <string name="desc_smart_paste_on">Code is pasted only into OTP input fields</string>
+    <string name="desc_smart_paste_off">Code is pasted into any focused input field</string>
+    <string name="stats_empty">Empty for now. Receive your first code and the list will appear here.</string>
+    <string name="stats_notifications">Notifications</string>
+    <string name="stats_test">Test</string>
+    <string name="lang_russian">Russian</string>
+    <string name="lang_english">English</string>
+    <string name="btn_advanced_show">Advanced settings</string>
+    <string name="btn_advanced_hide">Hide advanced settings</string>
+    <string name="main_section_status">STATUS</string>
+    <string name="main_status_overlay">Display over other apps</string>
+    <string name="main_status_sms">SMS access</string>
+    <string name="main_status_push">Notification access</string>
+    <string name="main_section_preview">PREVIEW</string>
+    <string name="main_hint_code">Code (4–9 digits)</string>
+    <string name="main_hint_sender">Sender (optional)</string>
+    <string name="main_samples_label">Examples: </string>
+    <string name="main_sample_4">4 digits</string>
+    <string name="main_sample_6">6 digits</string>
+    <string name="main_sample_8">8 digits</string>
+    <string name="main_sample_9">9 digits</string>
+    <string name="stats_title">Statistics</string>
+    <string name="stats_subtitle">How many codes and from whom</string>
+    <string name="stats_total_codes">total codes</string>
+    <string name="stats_today">today</string>
+    <string name="stats_section_week">THIS WEEK</string>
+    <string name="stats_section_top_senders">TOP SENDERS</string>
+    <string name="stats_section_sources">SOURCES</string>
+    <string name="stats_btn_clear">Clear statistics</string>
+    <string name="debug_title">Logs &amp; Debug</string>
+    <string name="debug_subtitle">Last crash + current event log</string>
+    <string name="debug_section_crash">LAST CRASH</string>
+    <string name="debug_section_log">EVENT LOG</string>
+    <string name="debug_btn_refresh">Refresh</string>
+    <string name="debug_btn_clear">Clear</string>
+    <string name="overlay_queue_title">Queue</string>
+    <string name="overlay_autopaste_label">Code pasted</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_language_label">Language</string>
+    <string name="settings_language_current">English</string>
+    <string name="settings_section_app_filter">APP FILTER</string>
+    <string name="settings_filter_title">Filter by apps</string>
+    <string name="settings_filter_desc_off">Off — all notifications are processed</string>
+    <string name="settings_apps_list_header">APP LIST</string>
+    <string name="settings_section_behavior">BEHAVIOR</string>
+    <string name="settings_autopaste_title">Automatic code paste</string>
+    <string name="settings_autopaste_desc">Accessibility service required</string>
+    <string name="settings_btn_accessibility">Open accessibility settings</string>
+    <string name="settings_no_copy_title">Don\'t copy on successful auto-paste</string>
+    <string name="settings_no_copy_desc">Code won\'t be copied to clipboard</string>
+    <string name="settings_smart_paste_title">Smart auto-paste</string>
+    <string name="settings_smart_paste_badge">  BETA</string>
+    <string name="settings_smart_paste_desc">Pastes code only into OTP input field</string>
+    <string name="settings_hide_headsup_title">Hide heads-up notification</string>
+    <string name="settings_hide_headsup_desc">Original notification is replaced with a silent copy in shade</string>
+    <string name="settings_silence_push_title">Remove notification from shade</string>
+    <string name="settings_silence_push_desc">Removes push notification (does not affect SMS)</string>
+    <string name="settings_back_action_title">Back gesture — copy and close</string>
+    <string name="settings_back_action_desc">Off — just close</string>
+    <string name="settings_sounds_title">Sounds</string>
+    <string name="settings_sounds_desc">Sound on code appearance and copy</string>
+    <string name="settings_copy_lottie_title">Copy animation</string>
+    <string name="settings_copy_lottie_desc">Decorative animation after pressing copy button</string>
+    <string name="settings_autopaste_lottie_title">Animation in "Code pasted"</string>
+    <string name="settings_autopaste_lottie_desc">Icon next to code on auto-paste</string>
+    <string name="settings_copy_speed_title">Copy animation speed</string>
+    <string name="settings_btn_advanced">Advanced settings</string>
+    <string name="settings_btn_debug">Logs &amp; Debug</string>
+    <string name="settings_anim_perf_title">Animation performance</string>
+    <string name="settings_anim_perf_desc">Disable layers if animation is slow</string>
+    <string name="settings_fx_lite">Standard (recommended)</string>
+    <string name="settings_fx_ultra">Lite (for low-end devices)</string>
+    <string name="settings_section_fx">OVERLAY EFFECTS</string>
+    <string name="settings_fx_apply_note">Changes apply immediately</string>
+    <string name="settings_fx_queue_mute_title">Simplified queue animation</string>
+    <string name="desc_panel_mute_on">Idle effects fade out while the queue panel is open and only a thin bar remains</string>
+    <string name="desc_panel_mute_off">All effects keep playing in the background even when the queue panel is open</string>
+    <string name="settings_fx_perim_title">Perimeter glow</string>
+    <string name="settings_fx_brightness">Brightness</string>
+    <string name="settings_fx_outer_glow">Outer glow (wide blur)</string>
+    <string name="settings_fx_outer_halo_width">Outer halo width (dp)</string>
+    <string name="settings_fx_outer_halo_blur">Outer halo blur (dp)</string>
+    <string name="settings_fx_mid_stroke_width">Mid stroke width (dp)</string>
+    <string name="settings_fx_mid_stroke_blur">Mid stroke blur (dp)</string>
+    <string name="settings_fx_inner_stroke_width">Inner stroke width (dp×10)</string>
+    <string name="settings_fx_breathing_title">Breathing</string>
+    <string name="settings_fx_amplitude">Amplitude</string>
+    <string name="settings_fx_period_ms">Period (ms)</string>
+    <string name="settings_fx_rotation_title">Gradient rotation</string>
+    <string name="settings_fx_sweep_stops">Colors in ring (1–10)</string>
+    <string name="settings_fx_hue_range">Hue spread (°)</string>
+    <string name="settings_fx_halo_title">Flash on appear</string>
+    <string name="settings_fx_intensity">Intensity</string>
+    <string name="settings_fx_wave_title">Wave</string>
+    <string name="settings_fx_halftone_title">Particles</string>
+    <string name="settings_fx_spark_title">Appear animation</string>
+    <string name="settings_fx_countdown_title">Countdown timer</string>
+    <string name="settings_fx_countdown_style">Timer bar animation style</string>
+    <string name="settings_fx_cd_shrink">Shrink — bottom bar shrinks to center</string>
+    <string name="settings_fx_cd_sweep">Sweep — perimeter line fades away</string>
+    <string name="settings_fx_blur_title">Blur on close</string>
+    <string name="settings_fx_reveal_duration">Reveal duration (ms)</string>
+    <string name="settings_fx_dismiss_duration">Dismiss duration (ms)</string>
+    <string name="settings_fx_edge_fade">Edge smoothing (fade-mask)</string>
+    <string name="settings_btn_reset_all">Reset all settings</string>
+    <string name="settings_reset_all_confirm_title">Reset all settings?</string>
+    <string name="settings_reset_all_confirm_msg">All settings will return to defaults. This action cannot be undone.</string>
+    <string name="settings_reset_all_confirm_ok">Reset</string>
+    <string name="settings_reset_all_confirm_cancel">Cancel</string>
+    <string name="toast_reset_all_done">Settings reset</string>
+    <string name="settings_section_keywords">KEYWORDS</string>
+    <string name="settings_keywords_desc">Overlay is shown only when one of these words is found in the message text.</string>
+    <string name="settings_hint_new_trigger">New word</string>
+    <string name="settings_btn_add_trigger">Add</string>
+    <string name="settings_btn_reset_triggers">Reset to defaults</string>
+    <string name="settings_section_regex">CODE SEARCH PATTERN</string>
+    <string name="settings_btn_regex_save">Save</string>
+    <string name="settings_btn_regex_reset">Reset</string>
+    <string name="settings_section_test">RECOGNITION TEST</string>
+    <string name="settings_test_desc">Paste notification text and tap Check — you\'ll see how the extractor works and which trigger word was found.</string>
+    <string name="settings_hint_test_input">paste message / SMS text here</string>
+    <string name="settings_btn_test_run">Check recognition</string>
+    <string name="settings_section_notif_log">NOTIFICATION LOG</string>
+    <string name="settings_notif_log_desc">Last 30 notifications and extractor decision. Scroll to see all, tap "Clear" to reset.</string>
+    <string name="settings_btn_log_refresh">Refresh</string>
+    <string name="settings_btn_log_clear">Clear</string>
+    <string name="splash_msg_welcome_back">Welcome back</string>
+    <string name="splash_msg_back_in_action">Back in action</string>
+    <string name="splash_msg_waited">Missed you</string>
+    <string name="splash_msg_codes_controlled">Codes under control</string>
+    <string name="splash_msg_ready">Ready to go</string>
+    <string name="splash_msg_again">You again</string>
+    <string name="splash_msg_watching">All under watch</string>
+    <string name="splash_msg_no_miss">Won\'t miss a single code</string>
+    <string name="splash_msg_system_ok">System nominal</string>
+    <string name="splash_msg_long_time">Hey, long time no see</string>
+    <string name="splash_msg_starting">Starting up…</string>
+    <string name="splash_msg_guarding">Guarding your codes</string>
+    <string name="crash_title">Something went wrong</string>
+    <string name="crash_subtitle">The app crashed last time. Tap "Report" — the crash log and device info will be copied to clipboard. Just paste them in your message.</string>
+    <string name="crash_btn_report">Report on GitHub</string>
+    <string name="crash_btn_ignore">Ignore</string>
+    <string name="diag_empty_text">Empty text.</string>
+    <string name="diag_trigger_found">Trigger: FOUND → \"%1$s\" @ %2$d\n</string>
+    <string name="diag_trigger_not_found">Trigger: NOT FOUND — code search not started\n</string>
+    <string name="diag_trigger_list">List: </string>
+    <string name="diag_regex_label">Regex: </string>
+    <string name="diag_regex_invalid">Regex is invalid — extractor will return null</string>
+    <string name="diag_code_found">Code: %1$s (position %2$d)</string>
+    <string name="diag_code_not_found">Code: NOT FOUND (regex matched nothing)</string>
+    <string name="diag_search_error">Error during search: </string>
+    <string name="diag_stop_blocked">Stop word: FOUND → \"%1$s\" @ %2$d — code suppressed\n</string>
+    <string name="diag_ignore_blocked">Ignored phrase: FOUND → \"%1$s\" @ %2$d — message dropped\n</string>
+    <string name="diag_currency_blocked">Code: %1$s @ %2$d — looks like a currency amount, suppressed\n</string>
+
+    <string name="settings_section_stop_words">STOP WORDS</string>
+    <string name="settings_stop_words_title">Block by stop words</string>
+    <string name="settings_stop_words_desc">If a notification text contains any of these words, the OTP overlay is suppressed</string>
+    <string name="settings_hint_new_stop">New stop word</string>
+    <string name="settings_btn_add_stop">Add</string>
+    <string name="settings_btn_clear_stops">Clear all</string>
+    <string name="toast_stops_cleared">Stop words cleared</string>
+    <string name="desc_stop_on">A message containing one of the words below is silently dropped</string>
+    <string name="desc_stop_off">Stop words are ignored — every matching code surfaces normally</string>
+
+    <string name="settings_section_ignore">IGNORED PHRASES</string>
+    <string name="settings_ignore_title">Drop messages with ignored phrases</string>
+    <string name="settings_ignore_desc">Hard-blocks notifications that contain words like “barcode”, “discount code”, “unicode”, etc. Edit the list freely.</string>
+    <string name="settings_hint_new_ignore">New ignored phrase</string>
+    <string name="settings_btn_add_ignore">Add</string>
+    <string name="settings_btn_reset_ignore">Reset to defaults</string>
+    <string name="desc_ignore_on">A message matching one of the phrases below skips the OTP pipeline entirely</string>
+    <string name="desc_ignore_off">Ignored phrases are bypassed — every code is considered for extraction</string>
+
+    <string name="settings_section_cleanup">CLEANUP RULES</string>
+    <string name="settings_cleanup_title">Strip noise before matching</string>
+    <string name="settings_cleanup_desc">Removes domains, “Ending NNNN”, the &lt;#&gt; SMS Retriever marker, and quotes before the extractor scans the text. Each entry is a regex.</string>
+    <string name="settings_hint_new_cleanup">New cleanup pattern</string>
+    <string name="settings_btn_add_cleanup">Add</string>
+    <string name="settings_btn_reset_cleanup">Reset to defaults</string>
+    <string name="desc_cleanup_on">Configured fragments are stripped from the message before code extraction</string>
+    <string name="desc_cleanup_off">Cleanup is skipped — the regex sees the message exactly as received</string>
+
+    <string name="settings_section_currency">CURRENCY GUARD</string>
+    <string name="settings_currency_title">Skip currency amounts</string>
+    <string name="settings_currency_desc">When digits sit next to one of these tokens (USD, EUR, RUB, BYN, $, €, …) they are treated as a monetary amount, not an OTP.</string>
+    <string name="settings_hint_new_currency">New currency token</string>
+    <string name="settings_btn_add_currency">Add</string>
+    <string name="settings_btn_reset_currency">Reset to defaults</string>
+    <string name="desc_currency_on">Digit runs sitting next to a currency token are treated as amounts, not codes</string>
+    <string name="desc_currency_off">Currency tokens are ignored — any 4–9 digit run can be picked as a code</string>
+
+    <string name="settings_skip_foreground_title">Ignore ongoing notifications</string>
+    <string name="settings_skip_foreground_desc">Skip persistent foreground-service notifications (music players, weather, VPN, navigation).</string>
+    <string name="desc_skip_fg_on">Persistent foreground notifications (player, weather, VPN, navigation) are bypassed</string>
+    <string name="desc_skip_fg_off">Persistent foreground notifications are scanned for codes alongside everything else</string>
+
+    <string name="settings_normalize_digits_title">Normalise non-Latin digits</string>
+    <string name="settings_normalize_digits_desc">Convert Persian and Arabic-Indic digits to ASCII 0–9 before matching.</string>
+    <string name="desc_normalize_on">Persian and Arabic-Indic digits are folded to ASCII 0–9 before the regex runs</string>
+    <string name="desc_normalize_off">Digits are matched in their original script — non-ASCII codes can be skipped</string>
+
+    <string name="settings_section_display_mode">DISPLAY MODE</string>
+    <string name="settings_display_mode_overlay_title">Overlay mode</string>
+    <string name="settings_display_mode_overlay_desc">Show the OTP card over the current app</string>
+    <string name="settings_display_mode_shade_title">Shade mode</string>
+    <string name="settings_display_mode_shade_desc">Deliver the OTP as a system notification with a live timer</string>
+
+    <string name="settings_back_to_shade_title">Back gesture sends to shade</string>
+    <string name="desc_back_to_shade_on">A back press tucks the code into the system shade with a live timer</string>
+    <string name="desc_back_to_shade_off">A back press dismisses the overlay without leaving anything behind</string>
+
+    <string name="settings_close_to_shade_title">Close button sends to shade</string>
+    <string name="desc_close_to_shade_on">Close tucks the code into the system shade so you can paste it later</string>
+    <string name="desc_close_to_shade_off">Close dismisses the overlay without saving the code anywhere</string>
+
+    <string name="settings_shade_duration_title">Shade timer</string>
+    <string name="settings_shade_duration_desc">How long the OTP stays in the shade. The notification shows a live countdown.</string>
+    <string name="settings_shade_duration_value">%1$d s</string>
+
+    <string name="shade_channel_name">OTP shade</string>
+    <string name="shade_channel_desc">OTP codes delivered to the notification shade with a live timer.</string>
+    <string name="shade_title_default">OTP code</string>
+    <string name="shade_action_copy">Copy</string>
+    <string name="shade_action_dismiss">Dismiss</string>
+    <string name="shade_label_code">Found code</string>
+    <string name="stats_unknown_sender">(unknown)</string>
+    <string name="weekday_mon">Mon</string>
+    <string name="weekday_tue">Tue</string>
+    <string name="weekday_wed">Wed</string>
+    <string name="weekday_thu">Thu</string>
+    <string name="weekday_fri">Fri</string>
+    <string name="weekday_sat">Sat</string>
+    <string name="weekday_sun">Sun</string>
+    <string name="settings_test_error">Error during test:\n</string>
+    <!-- Placeholder shown in the "Last notification" panel before
+         any notification has been processed. -->
+    <string name="last_notif_empty">No notifications received yet.\nSend a test message — a report will appear here.</string>
+    <!-- Fallback string when reading the persisted notification log
+         throws. %1$s is the exception's class name. -->
+    <string name="last_notif_read_failed">Failed to read: %1$s</string>
+
+    <!-- About dialog (easter egg from the build-info footer on the
+         main screen). No network calls — every action opens the
+         repository or one of its sub-pages in an external browser
+         via Intent.ACTION_VIEW. -->
+    <string name="about_repo_url" translatable="false">https://github.com/MidTano/otp-overlay</string>
+    <string name="about_release_url" translatable="false">https://github.com/MidTano/otp-overlay/releases/latest</string>
+    <string name="about_issues_url" translatable="false">https://github.com/MidTano/otp-overlay/issues</string>
+    <string name="about_contribute_url" translatable="false">https://github.com/MidTano/otp-overlay/blob/main/CONTRIBUTING.md</string>
+    <string name="about_contributors_url" translatable="false">https://github.com/MidTano/otp-overlay/graphs/contributors</string>
+
+    <string name="about_dialog_version">Version %1$s</string>
+    <string name="about_dialog_build">Build %1$s · %2$s</string>
+    <string name="about_section_links">Repository</string>
+    <string name="about_link_repo_title">Open on GitHub</string>
+    <string name="about_link_repo_subtitle">Source, documentation, releases</string>
+    <string name="about_link_release_title">Latest release</string>
+    <string name="about_link_release_subtitle">Changelog and installable APK</string>
+    <string name="about_link_issues_title">Report an issue</string>
+    <string name="about_link_issues_subtitle">Bug reports and feature requests</string>
+    <string name="about_link_contribute_title">Become a contributor</string>
+    <string name="about_link_contribute_subtitle">Pull requests are welcome</string>
+    <string name="about_link_contributors_title">Contributors</string>
+    <string name="about_link_contributors_subtitle">Everyone who has shipped code so far</string>
+    <string name="about_browser_unavailable">No browser available to open this link</string>
+    <string name="about_close">Close</string>
+
+    <!-- Credits dialog (easter-egg from the small footer note on the
+         main screen). Acknowledges the third-party Telegram emoji
+         pack used as the source for every Lottie animation in the
+         app and gives the original author a way to reach out if
+         they object to the use. No network calls; every link goes
+         through Intent.ACTION_VIEW. -->
+    <string name="credits_emoji_pack_url" translatable="false">https://t.me/addemoji/KawaiiEmoji</string>
+
+    <string name="main_credits_footer_label">Emoji animations from KawaiiEmoji</string>
+    <!-- Up-right arrow glyph appended to the credits footer chip as
+         a conventional "leads somewhere external" indicator.
+         translatable=false: typography. -->
+    <string name="main_credits_footer_arrow" translatable="false">↗</string>
+
+    <string name="credits_dialog_subtitle">Animated emoji used in this app</string>
+    <string name="credits_dialog_body">Every animated emoji in this app is a Lottie export of stickers from the KawaiiEmoji Telegram pack. The original author is unknown to me — if that is you, and you would prefer the animations not to be used here, please open an issue on GitHub and the assets will be replaced.</string>
+    <string name="credits_link_pack_title">KawaiiEmoji on Telegram</string>
+    <string name="credits_link_pack_subtitle">Original sticker pack — install for yourself</string>
+    <string name="credits_link_contact_title">Contact the project</string>
+    <string name="credits_link_contact_subtitle">Open an issue on GitHub if you are the author</string>
+
+    <!-- Foreground-service placeholder notification. The OS forces every
+         foreground service to surface SOMETHING in the shade; this is
+         the most muted shape allowed (PRIORITY_MIN + 10-second deferral
+         + auto-stop on queue empty), so in practice the user only sees
+         it on the rare burst path where multiple OTPs queue up. -->
+    <string name="fg_notification_title">Watching for codes</string>
+    <string name="fg_notification_text">The overlay service is active</string>
+    <string name="fg_channel_name">OTP Overlay</string>
+
+    <!-- Silent shade-only mirror channel (NotificationMirror.kt).
+         Shown in per-app notification settings when "hide heads-up"
+         is on. IMPORTANCE_LOW = no heads-up, no sound. -->
+    <string name="mirror_channel_name">Silent notification mirrors</string>
+    <string name="mirror_channel_description">Silent copies of OTP notifications — the original no longer pops up; the copy lives only in the shade.</string>
+
+    <!-- Default values used when the user hits "Show" with empty preview fields.
+         Generic placeholders to avoid hard-coding any real bank or phone number. -->
+    <string name="preview_default_code" translatable="false">123456</string>
+    <string name="preview_default_sender" translatable="false">+0 000 000-00-00</string>
+
+    <!-- Sample sender labels next to the example chips. translatable=false:
+         these are short fictitious app names that double as visual examples. -->
+    <string name="preview_sample_sender_a" translatable="false">Bank</string>
+    <string name="preview_sample_sender_b" translatable="false">Messenger</string>
+    <string name="preview_sample_sender_c" translatable="false">Wallet</string>
+    <string name="preview_sample_sender_d" translatable="false">Marketplace</string>
+
+    <!-- Sample OTP digit strings. translatable=false: numeric placeholders. -->
+    <string name="preview_sample_code_4" translatable="false">1234</string>
+    <string name="preview_sample_code_6" translatable="false">123456</string>
+    <string name="preview_sample_code_8" translatable="false">12345678</string>
+    <string name="preview_sample_code_9" translatable="false">123456789</string>
+</resources>

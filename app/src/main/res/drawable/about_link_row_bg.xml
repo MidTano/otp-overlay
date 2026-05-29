@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Background for tappable rows in the About dialog.
+
+    Uses the same pressed/idle pair as @drawable/btn_secondary so the
+    rows feel like the existing settings buttons, but with a slightly
+    softer corner radius and a thinner stroke since they sit nested
+    inside an already-bordered card.
+
+    The idle state stays nearly invisible against @drawable/card_bg —
+    rows look like plain list items until the user taps one. That
+    matches the "easter egg" spirit of the host dialog: discoverable
+    on touch, not advertised visually.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#1C1C1C"/>
+            <corners android:radius="10dp"/>
+            <stroke android:width="1dp" android:color="#303030"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#161616"/>
+            <corners android:radius="10dp"/>
+            <stroke android:width="1dp" android:color="#242424"/>
+        </shape>
+    </item>
+</selector>

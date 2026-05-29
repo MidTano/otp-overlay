@@ -1,0 +1,46 @@
+# Dependabot keeps third-party dependencies fresh while leaving the
+# author in charge of when to merge.
+#
+# Two ecosystems are watched:
+#   • gradle          — AGP, Kotlin, AndroidX, Lottie, Coroutines
+#                       (anything declared in gradle/libs.versions.toml).
+#   • github-actions  — every reusable action pinned by SHA in
+#                       .github/workflows/*.yml; Dependabot regenerates
+#                       the SHA + tag pair when a new release ships.
+#
+# `groups` keeps related bumps in a single PR so the CI run for, say,
+# the AndroidX libraries does not produce six near-identical builds.
+
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "gradle"
+    groups:
+      androidx:
+        patterns:
+          - "androidx.*"
+      kotlin:
+        patterns:
+          - "org.jetbrains.kotlin*"
+          - "org.jetbrains.kotlinx*"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "github-actions"

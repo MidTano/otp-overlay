@@ -1,0 +1,86 @@
+OTP Overlay
+Copyright (c) 2026 MidTano
+
+This product is licensed under the MIT License (see LICENSE).
+
+The MIT License does not require this NOTICE file. It is kept around
+purely as a courtesy attribution for the third-party assets and
+libraries the app bundles or links against — each carries its own
+license, which is preserved unchanged.
+
+================================================================
+Third-party assets and libraries
+================================================================
+
+The application bundles Lottie animations exported from the
+"KawaiiEmoji" Telegram sticker pack. The original author is
+unknown to the project. Attribution is surfaced in the in-app
+Credits dialog (Settings -> About -> Credits) along with a contact
+path so the original author can request removal or replacement.
+The original sticker pack is available at:
+https://t.me/addemoji/KawaiiEmoji
+
+================================================================
+Inspirations and references
+================================================================
+
+Some of the OTP-detection helper lists in
+app/src/main/kotlin/com/midtano/otp/data/prefs/PrefsFilter.kt
+(specifically DEFAULT_CLEANUP_PHRASES and DEFAULT_IGNORED_PHRASES)
+were inspired by the corresponding constants in:
+
+  * otphelper by jd1378 (https://github.com/jd1378/otphelper)
+    Licensed under AGPL-3.0.
+
+This project is licensed under the MIT License. The phrase
+lists in question are short factual collections of strings
+(domain regex, "card ending NNNN", brand-name false-positive
+filters). If the original author of otphelper considers this an
+unacceptable derivative work, please open an issue at
+https://github.com/MidTano/otp-overlay/issues and the lists
+will be rewritten from scratch or the project licence will be
+revisited.
+
+================================================================
+Open-source libraries linked at runtime
+================================================================
+
+The application links against the following open-source libraries
+at runtime. Each carries its own license file inside the published
+APK's META-INF directory.
+
+  * AndroidX (Apache License 2.0)
+      - androidx.appcompat:appcompat
+      - androidx.core:core-ktx
+      - androidx.constraintlayout:constraintlayout
+      - androidx.dynamicanimation:dynamicanimation
+      - androidx.recyclerview:recyclerview
+      - androidx.palette:palette
+
+  * Lottie for Android (Apache License 2.0)
+      - com.airbnb.android:lottie
+
+  * Kotlin Coroutines (Apache License 2.0)
+      - org.jetbrains.kotlinx:kotlinx-coroutines-android
+
+The font "JetBrains Mono" is bundled as a resource under
+res/font/jetbrains_mono_*.ttf and licensed under the SIL Open Font
+License 1.1 (https://scripts.sil.org/OFL).
+
+================================================================
+Build-time and test-only dependencies
+================================================================
+
+The following dependencies are used at build time, by tests, or by
+the microbenchmark module, and are NOT shipped inside the published
+APK. Each carries its own license:
+
+  * JUnit 4 (Eclipse Public License 1.0)
+  * Robolectric (MIT License)
+  * Mockito (MIT License)
+  * AndroidX Test (Apache License 2.0)
+  * Espresso (Apache License 2.0)
+  * UiAutomator (Apache License 2.0)
+  * AndroidX Benchmark (Apache License 2.0)
+  * Detekt (Apache License 2.0)
+  * JaCoCo (EPL 2.0)

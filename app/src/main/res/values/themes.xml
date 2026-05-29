@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        App theme.
+
+        The overlay app is dark-only — every surface is designed for a
+        black substrate (overlay card stroke, perimeter glow, brand
+        accents). The parent theme stays the same across system light
+        and dark modes so the hand-tuned palette renders correctly
+        regardless of the user's OS-level setting.
+    -->
+    <style name="Theme.SmsOverlay" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/brand_primary</item>
+        <item name="colorPrimaryDark">@color/brand_primary_dark</item>
+        <item name="colorAccent">@color/brand_accent</item>
+        <item name="android:statusBarColor">@color/brand_primary_dark</item>
+        <item name="android:navigationBarColor">@color/brand_primary_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowBackground">@color/window_bg</item>
+        <item name="android:windowAnimationStyle">@style/SlideWindowAnimations</item>
+    </style>
+
+    <!--
+        Shared design baseline for the SpringSwitch widget
+        (com.midtano.otp.widget.SpringSwitch) used across Settings:
+        white track ON, dark OFF, small thumb.
+    -->
+    <style name="SpringBaseDesign">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="ssTrackWidth">34dp</item>
+        <item name="ssTrackHeight">20dp</item>
+        <item name="ssThumbSize">15dp</item>
+        <item name="ssTrackColorOn">@color/ss_track_on</item>
+        <item name="ssTrackColorOff">@color/ss_track_off</item>
+        <item name="ssThumbColorOn">@color/ss_thumb_on</item>
+        <item name="ssThumbColorOff">@color/ss_thumb_off</item>
+        <item name="ssThumbInset">2dp</item>
+    </style>
+
+    <!-- The SpringSwitch style used across the app. -->
+    <style name="SS7" parent="SpringBaseDesign"/>
+
+    <!--
+        Shared design baseline for the AnimatedCheckbox widget
+        (com.midtano.otp.widget.AnimatedCheckbox).
+    -->
+    <style name="CheckboxBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="acBoxWidth">18dp</item>
+        <item name="acBoxHeight">18dp</item>
+        <item name="acBorderWidth">1.5dp</item>
+        <item name="acColorOn">@color/ac_bg_on</item>
+        <item name="acColorOff">@color/ac_bg_off</item>
+        <item name="acBorderOn">@color/ac_border_on</item>
+        <item name="acBorderOff">@color/ac_border_off</item>
+        <item name="acCheckColor">@color/ac_check</item>
+    </style>
+
+    <!-- Circle-dot variant used for app-row checkboxes and the FX picker. -->
+    <style name="CB6" parent="CheckboxBase">
+        <item name="acColorOn">@color/ac_check</item>
+        <item name="acBorderOn">@color/ac_check</item>
+        <item name="acCheckColor">@color/ac_check_dark</item>
+    </style>
+
+    <!-- The single SeekBar style used across Settings. -->
+    <style name="SeekbarSlider" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressDrawable">@drawable/seekbar_progress</item>
+        <item name="android:thumb">@drawable/seekbar_thumb</item>
+        <item name="android:splitTrack">false</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:maxHeight">10dp</item>
+    </style>
+
+    <!--
+        Composite window-animation style. Each attribute below points
+        to an <anim/> resource the system uses for the corresponding
+        transition phase. Slide push/pop curves are wired for both
+        task and activity transitions so the app behaves consistently
+        regardless of how it was launched.
+    -->
+    <style name="SlideWindowAnimations" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_push_enter</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_push_exit</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_pop_enter</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_pop_exit</item>
+
+        <item name="android:taskOpenEnterAnimation">@anim/slide_push_enter</item>
+        <item name="android:taskOpenExitAnimation">@anim/slide_push_exit</item>
+        <item name="android:taskCloseEnterAnimation">@anim/slide_pop_enter</item>
+        <item name="android:taskCloseExitAnimation">@anim/slide_pop_exit</item>
+    </style>
+</resources>

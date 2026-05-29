@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Permission card used four times by the onboarding screen. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/onboard_card_bg"
+    android:padding="18dp"
+    android:layout_marginBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            tools:text="Title"/>
+
+        <TextView
+            android:id="@+id/card_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/onboard_status_chip"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:textColor="@color/text_tertiary"
+            android:textSize="12sp"
+            android:letterSpacing="0.1"
+            tools:text="Chip"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/card_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_subtle"
+        android:textSize="12sp"
+        android:lineSpacingMultiplier="1.35"
+        android:layout_marginBottom="12dp"
+        tools:text="Description"/>
+
+    <Button
+        android:id="@+id/card_btn"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:textColor="@color/text_button_secondary"
+        android:textSize="12sp"
+        android:background="@drawable/onboard_grant_btn"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        tools:text="Action"/>
+</LinearLayout>

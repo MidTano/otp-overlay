@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adaptive-icon background: solid mid-grey disc that fills the
+    66 dp adaptive-icon safe zone, surrounded by transparent pixels.
+
+    Why a disc instead of the usual full-canvas tile? Adaptive icons
+    let the launcher pick a mask shape  circle, squircle, teardrop,
+    rounded square. By drawing a 66 dp disc and leaving the corners
+    transparent we force a true round outline on every launcher;
+    those that already mask to a circle keep our disc edge intact,
+    and those that try to render a squircle / square see the
+    transparent corners and end up with the same round silhouette
+    we drew.
+
+    Geometry (108108 viewport, safe-zone radius 33):
+       disc centred at (54,54), radius 33
+       everything outside is fully transparent
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <path
+        android:pathData="M 54,54 m -33,0 a 33,33 0 1,0 66,0 a 33,33 0 1,0 -66,0 z"
+        android:fillColor="#3F3F3F"/>
+
+</vector>

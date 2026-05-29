@@ -1,0 +1,326 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- OtpRevealLayout host: OTP header row + collapsible queue panel. -->
+<com.midtano.otp.overlay.BackInterceptLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <com.midtano.otp.overlay.OtpRevealLayout
+        android:id="@+id/reveal_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="28dp"
+        android:paddingEnd="28dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <LinearLayout
+            android:id="@+id/card_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/overlay_bg"
+            android:elevation="20dp"
+            android:alpha="0"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:clipToOutline="true">
+
+            <!--
+                alpha=0 starts the card invisible on the very first frame
+                so the OS never paints the default header row (icon +
+                whatever default text is in tv_sender, etc.) before our
+                reveal sequence in OtpRevealLayout / OverlayService
+                takes control. Without this, the gap between inflate
+                and the first onAttachedToWindow callback (~1 frame on
+                most devices, more on entry-level SoCs) showed up as a
+                ~50-100 ms flash of the un-animated layout. The card-in
+                spring + alpha tween in OtpRevealLayout#animateCardIn
+                takes the alpha back from 0 to 1 with the proper curve.
+            -->
+
+            <!--
+                Header row — FrameLayout so the digit row can be
+                centred against the WHOLE card (not against the
+                space between the left and right clusters). The
+                left cluster (icon + sender) and right cluster
+                (queue chip + copy + close) overlay the same
+                FrameLayout via layout_gravity. The digit row sits
+                on top with layout_gravity=center; tight-detection +
+                tuck animation in OverlayService prevent it from
+                overlapping the clusters at runtime.
+
+                Fixed height so the perimeter stroke has a stable
+                shape while the queue panel below resizes.
+            -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:paddingStart="10dp"
+                android:paddingEnd="8dp">
+
+                <!-- LEFT cluster: app icon + source-type indicator + sender label -->
+                <LinearLayout
+                    android:id="@+id/header_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:layout_gravity="start|center_vertical">
+
+                    <ImageView
+                        android:id="@+id/iv_app_icon"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="8dp"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="@null"/>
+
+                    <ImageView
+                        android:id="@+id/iv_source"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:src="@drawable/ic_sms"
+                        android:alpha="0"
+                        android:layout_marginEnd="6dp"
+                        android:contentDescription="@null"/>
+
+                    <TextView
+                        android:id="@+id/tv_sender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="sender"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:maxWidth="220dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:alpha="0"
+                        android:fontFamily="@font/jetbrains_mono"/>
+
+                    <View
+                        android:id="@+id/sender_divider"
+                        android:layout_width="1dp"
+                        android:layout_height="16dp"
+                        android:background="@color/overlay_separator"
+                        android:alpha="0"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="0dp"/>
+                </LinearLayout>
+
+                <!-- RIGHT cluster: queue chip + copy + close -->
+                <LinearLayout
+                    android:id="@+id/header_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="end|center_vertical">
+
+                    <FrameLayout
+                        android:id="@+id/btn_queue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:minWidth="28dp"
+                        android:layout_marginEnd="4dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:background="@drawable/queue_chip_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:alpha="0"
+                        android:visibility="gone">
+                        <TextView
+                            android:id="@+id/tv_queue_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            tools:text="+0"
+                            android:textColor="@color/text_primary"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/jetbrains_mono"
+                            android:includeFontPadding="false"/>
+                    </FrameLayout>
+
+                    <ImageView
+                        android:id="@+id/btn_copy"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_copy"
+                        android:padding="8dp"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"
+                        android:layout_marginEnd="4dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:scaleType="fitCenter"
+                        android:alpha="0"
+                        android:contentDescription="@null"/>
+
+                    <ImageView
+                        android:id="@+id/btn_close"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_close"
+                        android:padding="6dp"
+                        android:background="@drawable/close_btn_bg"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:alpha="0"
+                        android:contentDescription="@null"/>
+                </LinearLayout>
+
+                <!-- CENTERED digit row — overlays the whole card. The
+                     digit views are populated at reveal-time with
+                     proper layout_gravity=center so a 6-character code
+                     reads exactly in the middle of the card regardless
+                     of which clusters are visible on either side. -->
+                <LinearLayout
+                    android:id="@+id/ll_otp_digits"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:alpha="0"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/tv_otp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    tools:text="000000"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/jetbrains_mono"
+                    android:letterSpacing="0.1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="none"
+                    android:visibility="invisible"/>
+
+            </FrameLayout>
+
+            <!--
+                Queue dock card — lives inside the card root so resize
+                animations grow the OTP card itself. Initial height 0
+                (collapsed). OverlayService animates layoutParams.height
+                between 0 and the measured natural height; the children
+                live in a separate LinearLayout so their min-height
+                doesn't fight the height animation.
+
+                Visibility starts as GONE so a freshly-shown overlay
+                with an empty queue doesn't reserve any vertical space.
+            -->
+            <FrameLayout
+                android:id="@+id/queue_dock"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipChildren="true"
+                android:clipToPadding="true"
+                android:visibility="gone"
+                tools:ignore="UselessParent">
+
+                <LinearLayout
+                    android:id="@+id/queue_dock_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Slim divider so the queue list visually
+                         distinguishes itself from the header row
+                         without needing its own background fill. -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/card_divider"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="14dp"
+                        android:paddingEnd="6dp">
+
+                        <TextView
+                            android:id="@+id/tv_queue_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/text_muted"
+                            android:textSize="11sp"
+                            android:letterSpacing="0.04"
+                            android:text="@string/overlay_queue_title"/>
+
+                        <ImageView
+                            android:id="@+id/btn_queue_clear"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_close"
+                            android:padding="7dp"
+                            android:background="?android:attr/selectableItemBackgroundBorderless"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:scaleType="fitCenter"
+                            android:contentDescription="@null"/>
+                    </LinearLayout>
+
+                    <!--
+                        ScrollView for the queue list. Scrollbars hidden
+                        by default — they only appear if the queue is
+                        long enough to need scrolling AND the user has
+                        explicitly scrolled. The bar is drawn over the
+                        content (overlay style) so it doesn't push the
+                        rows aside while it fades in / out.
+
+                        Max height is capped to ~30% of the screen in
+                        OverlayService.animatePanelHeight; beyond that
+                        the user scrolls inside this view rather than
+                        the overlay growing further.
+                    -->
+                    <ScrollView
+                        android:id="@+id/queue_scroll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none"
+                        android:scrollbarThumbVertical="@drawable/app_scrollbar_thumb"
+                        android:scrollbarSize="3dp"
+                        android:scrollbarStyle="insideOverlay"
+                        android:fadeScrollbars="true"
+                        android:overScrollMode="never">
+
+                        <LinearLayout
+                            android:id="@+id/queue_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="6dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"/>
+
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </com.midtano.otp.overlay.OtpRevealLayout>
+
+</com.midtano.otp.overlay.BackInterceptLayout>
