@@ -9,6 +9,10 @@
 > no network, no analytics, no third-party SDKs.
 
 <p align="center">
+  <img alt="OTP Overlay demo" src="https://github.com/MidTano/otp-overlay/releases/download/media/demo.webp" width="320">
+</p>
+
+<p align="center">
   <a href="https://github.com/MidTano/otp-overlay/actions/workflows/android.yml"><img alt="Android CI" src="https://img.shields.io/github/actions/workflow/status/MidTano/otp-overlay/android.yml?branch=main&label=Android%20CI&logo=githubactions&logoColor=white&style=for-the-badge"></a>
   <a href="https://github.com/MidTano/otp-overlay/actions/workflows/codeql.yml"><img alt="CodeQL" src="https://img.shields.io/github/actions/workflow/status/MidTano/otp-overlay/codeql.yml?branch=main&label=CodeQL&logo=github&logoColor=white&style=for-the-badge"></a>
   <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2ea44f?style=for-the-badge&logo=opensourceinitiative&logoColor=white"></a>
