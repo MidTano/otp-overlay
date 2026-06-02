@@ -60,6 +60,7 @@ internal object OtpShadeNotifier {
     }
 
     fun ensureChannel(ctx: Context?) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) return
         val app = appCtx(ctx) ?: return
         val nm = app.getSystemService(NotificationManager::class.java) ?: return
         if (nm.getNotificationChannel(CHANNEL_ID) != null) return
@@ -85,6 +86,7 @@ internal object OtpShadeNotifier {
      * it on demand.
      */
     fun deleteChannel(ctx: Context?) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) return
         val app = appCtx(ctx) ?: return
         val nm = app.getSystemService(NotificationManager::class.java) ?: return
         try {
@@ -302,9 +304,17 @@ internal object OtpShadeNotifier {
             .setAction(action)
             .putExtra(EXTRA_OTP, otp)
             .putExtra(EXTRA_NOTIF_ID, notifId)
-        val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        val flags = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
         val requestCode = notifId xor action.hashCode()
-        return PendingIntent.getForegroundService(app, requestCode, i, flags)
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            PendingIntent.getForegroundService(app, requestCode, i, flags)
+        } else {
+            PendingIntent.getService(app, requestCode, i, flags)
+        }
     }
 
     private fun formatTimer(seconds: Int): String {

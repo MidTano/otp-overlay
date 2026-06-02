@@ -55,7 +55,11 @@ internal object OverlayClipboard {
         if (ctx == null) return
         try {
             val cm = ctx.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
-            cm.clearPrimaryClip()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                cm.clearPrimaryClip()
+            } else {
+                cm.setPrimaryClip(ClipData.newPlainText("", ""))
+            }
         } catch (e: SecurityException) {
             CrashLogger.logErr("OverlayClipboard.clearPrimary denied", e)
         } catch (e: IllegalStateException) {

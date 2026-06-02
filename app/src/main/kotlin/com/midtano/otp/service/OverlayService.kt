@@ -225,12 +225,14 @@ class OverlayService :
                     notif,
                     ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE,
                 )
-            } else {
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 startForeground(
                     ForegroundNotifier.FG_NOTIF_ID,
                     notif,
                     ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC,
                 )
+            } else {
+                startForeground(ForegroundNotifier.FG_NOTIF_ID, notif)
             }
         } catch (e: SecurityException) {
             // FOREGROUND_SERVICE_SPECIAL_USE not held by the OEM
@@ -303,7 +305,12 @@ class OverlayService :
         if (overlayRoot != null) return
         if (!queue.isEmpty()) return
         try {
-            stopForeground(STOP_FOREGROUND_REMOVE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                stopForeground(STOP_FOREGROUND_REMOVE)
+            } else {
+                @Suppress("DEPRECATION")
+                stopForeground(true)
+            }
         } catch (e: IllegalStateException) {
             // Service was already detached from foreground (race
             // with onDestroy) — treat as no-op.

@@ -73,13 +73,15 @@ class NotificationListener : NotificationListenerService() {
         // never revoked notification access. requestRebind is the
         // only documented way back without forcing them to re-toggle
         // the switch in system settings.
-        try {
-            requestRebind(ComponentName(this, NotificationListener::class.java))
-            CrashLogger.log("NotificationListener: requestRebind issued")
-        } catch (e: SecurityException) {
-            CrashLogger.logErr("NotificationListener.requestRebind denied", e)
-        } catch (e: IllegalStateException) {
-            CrashLogger.logErr("NotificationListener.requestRebind refused", e)
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            try {
+                requestRebind(ComponentName(this, NotificationListener::class.java))
+                CrashLogger.log("NotificationListener: requestRebind issued")
+            } catch (e: SecurityException) {
+                CrashLogger.logErr("NotificationListener.requestRebind denied", e)
+            } catch (e: IllegalStateException) {
+                CrashLogger.logErr("NotificationListener.requestRebind refused", e)
+            }
         }
     }
 

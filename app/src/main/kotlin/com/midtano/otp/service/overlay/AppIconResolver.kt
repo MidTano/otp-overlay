@@ -7,6 +7,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.createBitmap
 import androidx.core.graphics.drawable.toDrawable
 import androidx.palette.graphics.Palette
@@ -73,7 +74,7 @@ internal object AppIconResolver {
         val bmp = createBitmap(size, size)
         val c = Canvas(bmp)
         val pBg = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = if (brand != 0) brand else res.getColor(R.color.app_icon_fallback_bg, null)
+            color = if (brand != 0) brand else ResourcesCompat.getColor(res, R.color.app_icon_fallback_bg, null)
         }
         c.drawCircle(size * 0.5f, size * 0.5f, size * 0.48f, pBg)
         val letter = if (!sender.isNullOrEmpty()) {
@@ -82,7 +83,7 @@ internal object AppIconResolver {
             "?"
         }
         val pTxt = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = res.getColor(R.color.app_icon_fallback_text, null)
+            color = ResourcesCompat.getColor(res, R.color.app_icon_fallback_text, null)
             textSize = size * 0.56f
             textAlign = Paint.Align.CENTER
             isFakeBoldText = true

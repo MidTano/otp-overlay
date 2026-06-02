@@ -355,7 +355,11 @@ class SplashActivity : BaseActivity() {
      */
     private fun needsOnboarding(): Boolean {
         if (!Prefs.isOnboardingDone(this)) return true
-        val overlayOk = Settings.canDrawOverlays(this)
+        val overlayOk = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            Settings.canDrawOverlays(this)
+        } else {
+            true
+        }
         val smsOk = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) ==
             PackageManager.PERMISSION_GRANTED
         val notifOk = isNotificationListenerEnabled(this)

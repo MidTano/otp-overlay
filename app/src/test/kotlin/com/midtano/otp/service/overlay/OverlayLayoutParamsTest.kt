@@ -26,9 +26,27 @@ class OverlayLayoutParamsTest {
         get() = ApplicationProvider.getApplicationContext<Context>()
 
     @Test
-    fun cardParamsUseTypeApplicationOverlay() {
+    fun cardParamsUseCorrectWindowType() {
         val lp = OverlayLayoutParams.buildCardParams(ctx)
-        assertEquals(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY, lp.type)
+        val expected = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            @Suppress("DEPRECATION")
+            WindowManager.LayoutParams.TYPE_PHONE
+        }
+        assertEquals(expected, lp.type)
+    }
+
+    @Test
+    fun toastParamsUseCorrectWindowType() {
+        val lp = OverlayLayoutParams.buildToastParams(ctx)
+        val expected = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            @Suppress("DEPRECATION")
+            WindowManager.LayoutParams.TYPE_PHONE
+        }
+        assertEquals(expected, lp.type)
     }
 
     @Test

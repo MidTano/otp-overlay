@@ -229,7 +229,7 @@ class OnboardingActivity : BaseActivity() {
         // Start the overlay service so it is running once the user
         // exits the app.
         val svc = Intent(this, OverlayService::class.java)
-        startForegroundService(svc)
+        ContextCompat.startForegroundService(this, svc)
         val main = Intent(this, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             // The user has just watched the onboarding intro

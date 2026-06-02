@@ -31,7 +31,12 @@ internal object OverlayLayoutParams {
      *   pulled.
      */
     fun buildCardParams(ctx: Context): WindowManager.LayoutParams {
-        val type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        val type = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            @Suppress("DEPRECATION")
+            WindowManager.LayoutParams.TYPE_PHONE
+        }
         val flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
             WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM or
@@ -64,7 +69,12 @@ internal object OverlayLayoutParams {
      * status bar.
      */
     fun buildToastParams(ctx: Context): WindowManager.LayoutParams {
-        val type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        val type = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            @Suppress("DEPRECATION")
+            WindowManager.LayoutParams.TYPE_PHONE
+        }
         val flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
             WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or

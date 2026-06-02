@@ -43,6 +43,7 @@ internal object ForegroundNotifier {
 
     /** Lazily create the FGS channel. Idempotent. */
     fun createChannel(ctx: Context) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) return
         val nm = ctx.getSystemService(NotificationManager::class.java) ?: return
         // IMPORTANCE_LOW is the lowest tier the system accepts for
         // an FGS-bearing channel; combined with setShowBadge(false)

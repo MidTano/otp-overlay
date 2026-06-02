@@ -23,7 +23,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        minSdk = 31
+        minSdk = 23
         // benchmark-junit4 ships its own runner; using the AGP
         // default would skip the warmup / measurement phases.
         testInstrumentationRunner = "androidx.benchmark.junit4.AndroidBenchmarkRunner"

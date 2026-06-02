@@ -10,9 +10,21 @@ internal object OverlayHaptics {
 
     /** Play the short tactile confirmation. No-op on devices without a vibrator. */
     fun vibrateLight(ctx: Context) {
-        val vm = ctx.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? VibratorManager
-        val vib = vm?.defaultVibrator ?: return
-        if (!vib.hasVibrator()) return
-        vib.vibrate(VibrationEffect.createOneShot(60, VibrationEffect.DEFAULT_AMPLITUDE))
+        val vibrator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            val vm = ctx.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as? android.os.VibratorManager
+            vm?.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            ctx.getSystemService(Context.VIBRATOR_SERVICE) as? android.os.Vibrator
+        } ?: return
+
+        if (!vibrator.hasVibrator()) return
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            vibrator.vibrate(android.os.VibrationEffect.createOneShot(60, android.os.VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(60)
+        }
     }
 }

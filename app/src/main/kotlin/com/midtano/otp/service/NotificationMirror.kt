@@ -62,6 +62,7 @@ internal object NotificationMirror {
 
     /** Ensure the silent mirror channel exists. Safe to call repeatedly. */
     fun ensureChannel(ctx: Context) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) return
         val nm = ctx.getSystemService(NotificationManager::class.java) ?: return
         if (nm.getNotificationChannel(MIRROR_CHANNEL_ID) != null) return
         val ch = NotificationChannel(
@@ -90,6 +91,7 @@ internal object NotificationMirror {
      * expectation when an Android channel is deleted.
      */
     fun deleteChannel(ctx: Context) {
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.O) return
         val nm = ctx.getSystemService(NotificationManager::class.java) ?: return
         try {
             nm.deleteNotificationChannel(MIRROR_CHANNEL_ID)
@@ -150,9 +152,13 @@ internal object NotificationMirror {
             // silent clone.
             src.actions?.forEach { action ->
                 if (action == null || action.actionIntent == null) return@forEach
-                val ic: IconCompat? = try {
-                    action.getIcon()?.let { IconCompat.createFromIcon(ctx, it) }
-                } catch (_: Exception) {
+                val ic: IconCompat? = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    try {
+                        action.getIcon()?.let { IconCompat.createFromIcon(ctx, it) }
+                    } catch (_: Throwable) {
+                        null
+                    }
+                } else {
                     null
                 }
                 val compat = NotificationCompat.Action.Builder(ic, action.title, action.actionIntent).build()
@@ -191,11 +197,16 @@ internal object NotificationMirror {
                 null
             } else {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                val flags = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                } else {
+                    PendingIntent.FLAG_UPDATE_CURRENT
+                }
                 PendingIntent.getActivity(
                     ctx,
                     pkg.hashCode(),
                     i,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+                    flags,
                 )
             }
         }
@@ -224,7 +235,7 @@ internal object NotificationMirror {
             d.setBounds(0, 0, w, h)
             d.draw(c)
             bmp
-        } catch (_: Exception) {
+        } catch (_: Throwable) {
             null
         }
     }
