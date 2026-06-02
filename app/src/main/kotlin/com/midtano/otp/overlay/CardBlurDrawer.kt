@@ -73,7 +73,7 @@ internal class CardBlurDrawer {
             // is no longer needed.
             snapshot = null
             hwApplied = true
-        } catch (_: Exception) {
+        } catch (_: Throwable) {
             // Some OEM builds advertise API 31 but ship without
             // RenderEffect support; fall through to the software path.
         }
@@ -88,7 +88,7 @@ internal class CardBlurDrawer {
                 c.scale(1f / scale, 1f / scale)
                 card.draw(c)
                 snapshot = bm
-            } catch (_: Exception) {
+            } catch (_: Throwable) {
                 snapshot = null
             }
         }
@@ -106,7 +106,7 @@ internal class CardBlurDrawer {
         snapshot = null
         isApplied = false
         if (bm != null) {
-            try { bm.recycle() } catch (_: Exception) {}
+            try { bm.recycle() } catch (_: Throwable) {}
         }
     }
 
@@ -252,7 +252,7 @@ internal class CardBlurDrawer {
          */
         fun clearRenderEffect(card: View?) {
             if (card == null) return
-            try { card.setRenderEffect(null) } catch (_: Exception) {}
+            try { card.setRenderEffect(null) } catch (_: Throwable) {}
         }
     }
 }
