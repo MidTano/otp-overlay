@@ -433,7 +433,9 @@ class OtpRevealLayout @JvmOverloads constructor(
         // Clear any RenderEffect set during the copy blur — leaving
         // it on a re-used card view would compound the blur.
         try {
-            card()?.setRenderEffect(null)
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                card()?.setRenderEffect(null)
+            }
         } catch (_: Exception) {}
         cardSpringRunnable?.let {
             removeCallbacks(it)

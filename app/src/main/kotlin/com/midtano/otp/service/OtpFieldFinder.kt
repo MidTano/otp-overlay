@@ -462,7 +462,11 @@ internal object OtpFieldFinder {
         otpFieldConfidence(node) <= LEVEL_NUMERIC
 
     fun safeGetHint(node: AccessibilityNodeInfo): String? = try {
-        node.hintText?.toString()
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            node.hintText?.toString()
+        } else {
+            null
+        }
     } catch (_: Exception) { null }
 
     fun safeGetContentDescription(node: AccessibilityNodeInfo): String? = try {

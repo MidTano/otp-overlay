@@ -304,11 +304,7 @@ internal object OtpShadeNotifier {
             .setAction(action)
             .putExtra(EXTRA_OTP, otp)
             .putExtra(EXTRA_NOTIF_ID, notifId)
-        val flags = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
+        val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         val requestCode = notifId xor action.hashCode()
         return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             PendingIntent.getForegroundService(app, requestCode, i, flags)

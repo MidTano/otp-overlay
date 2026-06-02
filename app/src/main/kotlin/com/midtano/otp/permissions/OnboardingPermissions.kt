@@ -24,11 +24,7 @@ internal object OnboardingPermissions {
     const val REQ_POST_NOTIF: Int = 42
 
     fun isOverlayGranted(ctx: Context): Boolean {
-        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            Settings.canDrawOverlays(ctx)
-        } else {
-            true
-        }
+        return Settings.canDrawOverlays(ctx)
     }
 
     fun isSmsGranted(ctx: Context): Boolean =
@@ -72,7 +68,6 @@ internal object OnboardingPermissions {
     }
 
     fun requestOverlay(host: Activity) {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.M) return
         if (Settings.canDrawOverlays(host)) return
         host.startActivity(
             Intent(

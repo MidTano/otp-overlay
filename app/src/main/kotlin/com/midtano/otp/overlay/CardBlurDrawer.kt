@@ -66,16 +66,18 @@ internal class CardBlurDrawer {
 
         // Hardware path: GPU blur in a single composite pass.
         var hwApplied = false
-        try {
-            val blur = RenderEffect.createBlurEffect(28f, 28f, Shader.TileMode.CLAMP)
-            card.setRenderEffect(blur)
-            // Drop any prior snapshot — the software fallback bitmap
-            // is no longer needed.
-            snapshot = null
-            hwApplied = true
-        } catch (_: Throwable) {
-            // Some OEM builds advertise API 31 but ship without
-            // RenderEffect support; fall through to the software path.
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            try {
+                val blur = RenderEffect.createBlurEffect(28f, 28f, Shader.TileMode.CLAMP)
+                card.setRenderEffect(blur)
+                // Drop any prior snapshot — the software fallback bitmap
+                // is no longer needed.
+                snapshot = null
+                hwApplied = true
+            } catch (_: Throwable) {
+                // Some OEM builds advertise API 31 but ship without
+                // RenderEffect support; fall through to the software path.
+            }
         }
 
         if (!hwApplied) {
@@ -252,7 +254,9 @@ internal class CardBlurDrawer {
          */
         fun clearRenderEffect(card: View?) {
             if (card == null) return
-            try { card.setRenderEffect(null) } catch (_: Throwable) {}
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                try { card.setRenderEffect(null) } catch (_: Throwable) {}
+            }
         }
     }
 }

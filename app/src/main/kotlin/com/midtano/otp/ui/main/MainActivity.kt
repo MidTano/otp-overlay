@@ -153,7 +153,7 @@ class MainActivity : BaseActivity() {
             startActivity(Intent(this, StatsActivity::class.java))
         }
         findViewById<Button>(R.id.btn_preview).setOnClickListener {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            if (!Settings.canDrawOverlays(this)) {
                 Toast.makeText(
                     this,
                     getString(R.string.toast_overlay_permission),
@@ -205,11 +205,7 @@ class MainActivity : BaseActivity() {
      */
     private fun shouldShowOnboarding(): Boolean {
         if (!Prefs.isOnboardingDone(this)) return true
-        val overlayOk = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            Settings.canDrawOverlays(this)
-        } else {
-            true
-        }
+        val overlayOk = Settings.canDrawOverlays(this)
         val smsOk = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) ==
             PackageManager.PERMISSION_GRANTED
         val notifOk = isNotificationListenerEnabled()
@@ -297,11 +293,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun updateStatus() {
-        val overlayOk = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            Settings.canDrawOverlays(this)
-        } else {
-            true
-        }
+        val overlayOk = Settings.canDrawOverlays(this)
         val smsOk = ContextCompat.checkSelfPermission(this, Manifest.permission.RECEIVE_SMS) ==
             PackageManager.PERMISSION_GRANTED
         val pushOk = isNotificationListenerEnabled()

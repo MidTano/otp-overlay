@@ -152,13 +152,9 @@ internal object NotificationMirror {
             // silent clone.
             src.actions?.forEach { action ->
                 if (action == null || action.actionIntent == null) return@forEach
-                val ic: IconCompat? = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    try {
-                        action.getIcon()?.let { IconCompat.createFromIcon(ctx, it) }
-                    } catch (_: Throwable) {
-                        null
-                    }
-                } else {
+                val ic: IconCompat? = try {
+                    action.getIcon()?.let { IconCompat.createFromIcon(ctx, it) }
+                } catch (_: Throwable) {
                     null
                 }
                 val compat = NotificationCompat.Action.Builder(ic, action.title, action.actionIntent).build()
@@ -197,11 +193,7 @@ internal object NotificationMirror {
                 null
             } else {
                 i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                val flags = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-                } else {
-                    PendingIntent.FLAG_UPDATE_CURRENT
-                }
+                val flags = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
                 PendingIntent.getActivity(
                     ctx,
                     pkg.hashCode(),

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Settings screen. -->
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" 
@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical" android:scrollbarThumbVertical="@drawable/app_scrollbar_thumb" android:scrollbarSize="3dp" android:fadeScrollbars="true"
-    tools:ignore="TooManyViews">
+    tools:ignore="TooManyViews,UnusedAttribute">
 
     <LinearLayout
         android:layout_width="match_parent"
