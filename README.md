@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <a href="app/build.gradle.kts"><img alt="min-sdk" src="https://img.shields.io/badge/min--sdk-31-3DDC84?style=flat-square&logo=android&logoColor=white"></a>
+  <a href="app/build.gradle.kts"><img alt="min-sdk" src="https://img.shields.io/badge/min--sdk-23-3DDC84?style=flat-square&logo=android&logoColor=white"></a>
   <a href="app/build.gradle.kts"><img alt="target-sdk" src="https://img.shields.io/badge/target--sdk-36-3DDC84?style=flat-square&logo=android&logoColor=white"></a>
   <a href="gradle/libs.versions.toml"><img alt="Kotlin" src="https://img.shields.io/badge/Kotlin-2.3.20-7F52FF?style=flat-square&logo=kotlin&logoColor=white"></a>
   <a href="gradle/libs.versions.toml"><img alt="AGP" src="https://img.shields.io/badge/AGP-9.2.1-1F6FEB?style=flat-square&logo=gradle&logoColor=white"></a>

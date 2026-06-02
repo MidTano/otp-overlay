@@ -69,14 +69,14 @@ android {
 
     defaultConfig {
         applicationId = "com.midtano.otp"
-        minSdk = 31
+        minSdk = 23
         targetSdk = 36
         // versionCode follows the versionName encoding: MAJOR*100000
         // + MINOR*1000 + PATCH (so 1.0.0 → 100000). This keeps
         // Play Store's monotonic versionCode requirement satisfied
         // and stays aligned with the human-readable name.
-        versionCode = 100000
-        versionName = "1.0.0"
+        versionCode = 101000
+        versionName = "1.1.0"
 
         // Use AndroidX test runner so connectedAndroidTest can
         // bootstrap Espresso / UiAutomator instrumentation against
