@@ -10,7 +10,7 @@ agp = "9.2.1"
 # track for K2 frontend compatibility.
 kotlin = "2.3.20"
 appcompat = "1.7.1"
-core = "1.18.0"
+core = "1.19.0"
 constraintlayout = "2.2.1"
 dynamicanimation = "1.1.0"
 recyclerview = "1.4.0"
