@@ -1,7 +1,7 @@
 [versions]
 # Android Gradle Plugin 9.2.x — supports compileSdk 36.1, requires
 # Gradle 9.x, JDK 17+ (JDK 21 recommended). Released April 2026.
-agp = "9.2.1"
+agp = "9.3.1"
 # Kotlin 2.3.20 — pairs with AGP 9.2 (K2 compiler default).
 # Bumped from 2.2.20 in May 2026: Kotlin 2.2 reached EOL on
 # 2025-12-16 (eosl.date), so it no longer receives security
