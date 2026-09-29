@@ -63,6 +63,9 @@ class OnboardingActivity : BaseActivity() {
      */
     private var splashHandler: Handler? = null
 
+    /** Set once the splash overlay is hidden by any path. */
+    private var splashSettled = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_onboarding)
@@ -99,6 +102,21 @@ class OnboardingActivity : BaseActivity() {
         val lottie = findViewById<LottieAnimationView>(R.id.lottie_onboarding)
         val suckIn = findViewById<SuckInOverlayView>(R.id.suck_in_overlay)
 
+        // Bounded fallback: if the composition never loads, the overlay
+        // above would trap the user above the permission cards forever.
+        // Hide it so granting stays reachable.
+        val splashFallbackHandler =
+            splashHandler ?: Handler(Looper.getMainLooper()).also { splashHandler = it }
+        splashFallbackHandler.postDelayed(
+            {
+                if (!splashSettled) {
+                    splashSettled = true
+                    findViewById<View?>(R.id.splash_root)?.visibility = View.GONE
+                }
+            },
+            SplashAnimTimings.forDuration(3_000L).fallbackMs,
+        )
+
         lottie.addLottieOnCompositionLoadedListener { composition ->
             // Recolour every layer to white.
             lottie.addValueCallback(KeyPath("**"), LottieProperty.COLOR, LottieValueCallback(Color.WHITE))
@@ -121,6 +139,7 @@ class OnboardingActivity : BaseActivity() {
 
         lottie.addAnimatorListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator) {
+                splashSettled = true
                 findViewById<View?>(R.id.splash_root)?.visibility = View.GONE
             }
         })

@@ -298,9 +298,9 @@ class MainActivity : BaseActivity() {
             PackageManager.PERMISSION_GRANTED
         val pushOk = isNotificationListenerEnabled()
 
-        bindStatusRow(R.id.iv_status_overlay, R.id.tv_status_overlay, overlayOk)
-        bindStatusRow(R.id.iv_status_sms, R.id.tv_status_sms, smsOk)
-        bindStatusRow(R.id.iv_status_push, R.id.tv_status_push, pushOk)
+        bindStatusRow(R.id.iv_status_overlay, R.id.tv_status_overlay, R.string.main_status_overlay, overlayOk)
+        bindStatusRow(R.id.iv_status_sms, R.id.tv_status_sms, R.string.main_status_sms, smsOk)
+        bindStatusRow(R.id.iv_status_push, R.id.tv_status_push, R.string.main_status_push, pushOk)
 
         val sb = StringBuilder()
             .append("Overlay:  ").append(if (overlayOk) "OK" else getString(R.string.status_no_permission)).append('\n')
@@ -314,12 +314,19 @@ class MainActivity : BaseActivity() {
         statusText?.text = sb
     }
 
-    private fun bindStatusRow(iconId: Int, labelId: Int, ok: Boolean) {
+    private fun bindStatusRow(iconId: Int, labelId: Int, titleRes: Int, ok: Boolean) {
+        // The per-row state used to live only in the hidden diagnostic
+        // sink, so the visible card showed an icon with no state text
+        // and screen readers announced nothing. Render it in place.
+        val state = getString(if (ok) R.string.status_ok else R.string.status_no_permission)
         try {
-            findViewById<ImageView?>(iconId)?.setImageResource(
-                if (ok) R.drawable.ic_check_circle else R.drawable.ic_warning_circle,
-            )
-            findViewById<TextView?>(labelId)?.text = ""
+            findViewById<ImageView?>(iconId)?.let { icon ->
+                icon.setImageResource(
+                    if (ok) R.drawable.ic_check_circle else R.drawable.ic_warning_circle,
+                )
+                icon.contentDescription = getString(titleRes) + ": " + state
+            }
+            findViewById<TextView?>(labelId)?.text = state
         } catch (e: android.content.res.Resources.NotFoundException) {
             // setImageResource throws when the drawable was stripped
             // by R8's resource shrinker. Fall through silently — the
