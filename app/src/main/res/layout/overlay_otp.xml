@@ -133,6 +133,7 @@
 
                     <FrameLayout
                         android:id="@+id/btn_queue"
+                        android:contentDescription="@string/overlay_cd_queue"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:minWidth="28dp"
@@ -169,7 +170,7 @@
                         android:focusable="true"
                         android:scaleType="fitCenter"
                         android:alpha="0"
-                        android:contentDescription="@null"/>
+                        android:contentDescription="@string/overlay_cd_copy"/>
 
                     <ImageView
                         android:id="@+id/btn_close"
@@ -181,7 +182,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:alpha="0"
-                        android:contentDescription="@null"/>
+                        android:contentDescription="@string/overlay_cd_close"/>
                 </LinearLayout>
 
                 <!-- CENTERED digit row — overlays the whole card. The
@@ -277,7 +278,7 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:scaleType="fitCenter"
-                            android:contentDescription="@null"/>
+                            android:contentDescription="@string/overlay_cd_clear_queue"/>
                     </LinearLayout>
 
                     <!--

@@ -49,8 +49,17 @@
     <string name="toast_stats_cleared">Statistics cleared</string>
     <string name="status_no_permission">no permission</string>
     <string name="status_ready">Ready — service active.</string>
+    <!-- Short per-row state label on the main STATUS card. translatable=false: universal token. -->
+    <string name="status_ok" translatable="false">OK</string>
     <string name="overlay_code_pasted">Code pasted</string>
     <string name="overlay_queue">Queue</string>
+    <!-- Content descriptions for the icon-only overlay controls. -->
+    <string name="overlay_cd_copy">Copy code</string>
+    <string name="overlay_cd_close">Close</string>
+    <string name="overlay_cd_queue">Queued codes</string>
+    <string name="overlay_cd_clear_queue">Clear queue</string>
+    <string name="overlay_cd_queue_copy">Copy code</string>
+    <string name="overlay_cd_queue_delete">Remove from queue</string>
     <string name="perm_overlay_title">Display over other apps</string>
     <string name="perm_overlay_desc">Allows showing the code card over any open app.</string>
     <string name="perm_sms_title">SMS access</string>

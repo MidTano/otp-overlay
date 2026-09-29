@@ -58,7 +58,7 @@
         android:clickable="true"
         android:focusable="true"
         android:scaleType="fitCenter"
-        android:contentDescription="@null"/>
+        android:contentDescription="@string/overlay_cd_queue_copy"/>
 
     <!--
         Per-row delete. Drops just this code from the queue without
@@ -76,6 +76,6 @@
         android:clickable="true"
         android:focusable="true"
         android:scaleType="fitCenter"
-        android:contentDescription="@null"/>
+        android:contentDescription="@string/overlay_cd_queue_delete"/>
 
 </LinearLayout>

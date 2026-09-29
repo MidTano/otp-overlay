@@ -30,8 +30,17 @@
     <string name="toast_stats_cleared">Статистика очищена</string>
     <string name="status_no_permission">нет разрешения</string>
     <string name="status_ready">Готово — служба активна.</string>
+    <!-- Short per-row state label on the main STATUS card. translatable=false: universal token. -->
+    <string name="status_ok" translatable="false">OK</string>
     <string name="overlay_code_pasted">Код вставлен</string>
     <string name="overlay_queue">Очередь</string>
+    <!-- Content descriptions for the icon-only overlay controls. -->
+    <string name="overlay_cd_copy">Скопировать код</string>
+    <string name="overlay_cd_close">Закрыть</string>
+    <string name="overlay_cd_queue">Коды в очереди</string>
+    <string name="overlay_cd_clear_queue">Очистить очередь</string>
+    <string name="overlay_cd_queue_copy">Скопировать код</string>
+    <string name="overlay_cd_queue_delete">Убрать из очереди</string>
     <string name="perm_overlay_title">Отображение поверх приложений</string>
     <string name="perm_overlay_desc">Позволяет показывать карточку с кодом поверх любого открытого приложения.</string>
     <string name="perm_sms_title">Доступ к SMS</string>
